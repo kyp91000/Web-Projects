@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Daily Brew - Café</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+html, body { height: 100%; margin: 0; }
+* { font-family: 'Poppins', sans-serif; }
+.serif-font { font-family: 'Playfair Display', serif; }
+body { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
+.fade-in { animation: fadeIn 0.6s ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.smooth-btn { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.smooth-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(0,0,0,0.12); }
+.card-hover { transition: all 0.3s ease; }
+.card-hover:hover { transform: translateY(-6px); box-shadow: 0 16px 32px rgba(0,0,0,0.08); }
+.gradient-text { background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.nav-link { position: relative; transition: color 0.3s ease; }
+.nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: #0ea5e9; transition: width 0.3s ease; }
+.nav-link:hover::after { width: 100%; }
+.section-title { position: relative; display: inline-block; }
+.section-title::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 60px; height: 3px; background: #0ea5e9; border-radius: 2px; }
+  </style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <style>body { box-sizing: border-box; }</style>
+ </head>
+ <body class="h-full overflow-auto" style="background: #f0f9fc;">
+  <div id="app" class="w-full min-h-full"><!-- Header/Navigation -->
+   <header id="header" class="sticky top-0 z-50 w-full shadow-sm" style="background: linear-gradient(135deg, #ffffff 0%, #e0f7ff 100%); border-bottom: 3px solid #0097d4;">
+    <nav class="w-full max-w-7xl mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
+     <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full flex items-center justify-center" ><img src = logo.jpg class="w-20 h-15" style="color: white;"></i>
+      </div><span id="cafe-name" class="serif-font text-2xl font-bold" style="color: #004e7e;">The Daily Brew</span>
+     </div>
+     <div class="hidden md:flex items-center gap-8"><a href="#home" class="nav-link" style="color: #0097d4;">Home</a> <a href="#menu" class="nav-link" style="color: #0097d4;">Menu</a> <a href="#about" class="nav-link" style="color: #0097d4;">About</a> <a href="#contact" class="nav-link" style="color: #0097d4;">Contact</a>
+     </div><button id="mobile-menu-btn" class="md:hidden" style="color: #0097d4;"> <i data-lucide="menu" class="w-6 h-6"></i> </button>
+    </nav><!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden pb-4 px-6" style="background: #e0f7ff;"><a href="#home" class="block py-2" style="color: #0097d4;">Home</a> <a href="#menu" class="block py-2" style="color: #0097d4;">Menu</a> <a href="#about" class="block py-2" style="color: #0097d4;">About</a> <a href="#contact" class="block py-2" style="color: #0097d4;">Contact</a>
+    </div>
+   </header><!-- Hero Section -->
+   <section id="home" class="w-full px-6 md:px-12 py-20 md:py-32" style="background: linear-gradient(135deg, #caf0f8 0%, #b3e5fc 100%);">
+    <div class="max-w-6xl mx-auto text-center">
+     <h1 id="hero-heading" class="serif-font text-4xl md:text-6xl font-bold mb-4 fade-in" style="color: #004e7e;">Welcome to The Daily Brew</h1>
+     <p id="hero-description" class="text-lg md:text-xl mb-8 fade-in stagger-1" style="color: #00678f;">Experience the perfect blend of quality coffee, fresh pastries, and warm hospitality</p>
+     <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in stagger-2"><button class="px-8 py-3 rounded-lg font-semibold smooth-btn" style="background: linear-gradient(135deg, #0097d4 0%, #00b4d8 100%); color: white;"> Explore Menu </button> <button class="px-8 py-3 rounded-lg font-semibold smooth-btn border-2" style="border-color: #0097d4; color: #0097d4; background: #ffffff;"> Reserve a Table </button>
+     </div>
+    </div>
+   </section><!-- About Section -->
+   <section id="about" class="w-full px-6 md:px-12 py-16 md:py-24" style="background: #e3f2fd;">
+    <div class="max-w-6xl mx-auto">
+     <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+       <h2 class="section-title serif-font text-3xl md:text-4xl font-bold mb-6" style="color: #004e7e;">Our Story</h2>
+       <p class="text-base md:text-lg leading-relaxed mb-4" style="color: #1a5a7a;">Established in 2015, The Daily Brew was born from a passion for exceptional coffee and genuine connection. We believe every cup tells a story—from the farmers who grow our beans to the hands that brew your perfect morning ritual.</p>
+       <p class="text-base md:text-lg leading-relaxed" style="color: #1a5a7a;">Our cozy space brings together coffee enthusiasts, remote workers, and friends. We source ethically-traded beans and use traditional brewing methods to ensure every sip is unforgettable.</p>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+       <div class="bg-gradient-to-br rounded-xl h-40 flex items-center justify-center" style="background: linear-gradient(135deg, #0097d4 0%, #00b4d8 100%); color: white;">
+        <div class="text-center">
+         <div class="serif-font text-4xl font-bold">
+          500+
+         </div>
+         <div class="text-sm opacity-90">
+          Daily Visitors
+         </div>
+        </div>
+       </div>
+       <div class="bg-gradient-to-br rounded-xl h-40 flex items-center justify-center" style="background: linear-gradient(135deg, #4dd0e1 0%, #80deea 100%); color: #004e7e;">
+        <div class="text-center">
+         <div class="serif-font text-4xl font-bold">
+          8+
+         </div>
+         <div class="text-sm opacity-90">
+          Years Running
+         </div>
+        </div>
+       </div>
+       <div class="bg-gradient-to-br rounded-xl h-40 flex items-center justify-center md:col-span-2" style="background: linear-gradient(135deg, #0097d4 0%, #00b4d8 100%); color: white;">
+        <div class="text-center">
+         <div class="serif-font text-4xl font-bold">
+          4.9★
+         </div>
+         <div class="text-sm opacity-90">
+          Customer Rating
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Menu Section -->
+   <section id="menu" class="w-full px-6 md:px-12 py-16 md:py-24" style="background: #f5f5f5;">
+    <div class="max-w-6xl mx-auto">
+     <h2 class="section-title serif-font text-3xl md:text-4xl font-bold text-center mb-12" style="color: #004e7e;">Our Menu</h2><!-- Foods -->
+     <div class="mb-12">
+      <h3 class="text-2xl font-bold mb-6" style="color: #0097d4;">🥐 Foods</h3>
+      <div class="grid md:grid-cols-3 gap-6">
+       <div class="card-hover rounded-xl overflow-hidden border-2" style="background: #ffffff; border-color: #90caf9;"><img src= Buttery_Croissant_Image.jpg w=400&amp;h=250&amp;fit=crop alt="Buttery Croissant" loading="lazy" class="w-full h-48 object-cover" onerror="console.error('Image failed to load:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <div class="p-6">
+         <h4 class="font-semibold text-lg mb-2" style="color: #004e7e;">Buttery Croissant</h4>
+         <p class="text-sm mb-4" style="color: #666666;">Fresh French croissants baked daily with premium butter</p>
+         <p class="font-semibold" style="color: #0097d4;">$4.50</p>
+        </div>
+       </div>
+       <div class="card-hover rounded-xl overflow-hidden border-2" style="background: #ffffff; border-color: #90caf9;"><img src=Muffins_Image.jpg w=400&amp;h=250&amp;fit=crop alt="Blueberry Muffin" loading="lazy" class="w-full h-48 object-cover" onerror="console.error('Image failed to load:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <div class="p-6">
+         <h4 class="font-semibold text-lg mb-2" style="color: #004e7e;">Blueberry Muffin</h4>
+         <p class="text-sm mb-4" style="color: #666666;">Moist muffin packed with fresh blueberries</p>
+         <p class="font-semibold" style="color: #0097d4;">$3.95</p>
+        </div>
+       </div>
+       <div class="card-hover rounded-xl overflow-hidden border-2" style="background: #ffffff; border-color: #90caf9;"><img src= Artisan_Sandwich_Image.jpg w=400&amp;h=250&amp;fit=crop alt="Artisan Sandwich" loading="lazy" class="w-full h-48 object-cover" onerror="console.error('Image failed to load:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <div class="p-6">
+         <h4 class="font-semibold text-lg mb-2" style="color: #004e7e;">Artisan Sandwich</h4>
+         <p class="text-sm mb-4" style="color: #666666;">House-made bread with fresh ingredients &amp; premium meats</p>
+         <p class="font-semibold" style="color: #0097d4;">$9.95</p>
+        </div>
+       </div>
+      </div>
+     </div><!-- Soft Drinks -->
+     <div class="mb-12">
+      <h3 class="text-2xl font-bold mb-6" style="color: #0097d4;">🥤 Soft Drinks</h3>
+      <div class="grid md:grid-cols-3 gap-6">
+       <div class="card-hover rounded-xl overflow-hidden border-2" style="background: #ffffff; border-color: #90caf9;"><img src=Fresh_Lemonade_Image.jpg w=400&amp;h=250 &amp;fit=crop alt="Fresh Lemonade" loading="lazy" class="w-full h-48 object-cover" onerror="console.error('Image failed to load:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <div class="p-6">
+         <h4 class="font-semibold text-lg mb-2" style="color: #004e7e;">Fresh Lemonade</h4>
+         <p class="text-sm mb-4" style="color: #666666;">Freshly squeezed lemon juice with sparkling water</p>
+         <p class="font-semibold" style="color: #0097d4;">$3.50</p>
+        </div>
+       </div>
+       <div class="card-hover rounded-xl overflow-hidden border-2" style="background: #ffffff; border-color: #90caf9;"><img src=Berry_Smoothie_Image.jpg w=400&amp;h=250 &amp;fit=crop alt="Berry Smoothie" loading="lazy" class="w-full h-48 object-cover" onerror="console.error('Image failed to load:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <div class="p-6">
+         <h4 class="font-semibold text-lg mb-2" style="color: #004e7e;">Berry Smoothie</h4>
+         <p class="text-sm mb-4" style="color: #666666;">Blended berries, yogurt &amp; honey blend</p>
+         <p class="font-semibold" style="color: #0097d4;">$5.95</p>
+        </div>
+       </div>
+       <div class="card-hover rounded-xl overflow-hidden border-2" style="background: #ffffff; border-color: #90caf9;"><img src=Iced_Tea_Image.jpg w=400&amp;h=250&amp;fit=crop alt="Iced Tea" loading="lazy" class="w-full h-48 object-cover" onerror="console.error('Image failed to load:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <div class="p-6">
+         <h4 class="font-semibold text-lg mb-2" style="color: #004e7e;">Iced Tea</h4>
+         <p class="text-sm mb-4" style="color: #666666;">Chilled premium tea with lemon &amp; mint</p>
+         <p class="font-semibold" style="color: #0097d4;">$3.75</p>
+        </div>
+       </div>
+      </div>
+     </div><!-- Hot Drinks -->
+     <div class="mb-12">
+      <h3 class="text-2xl font-bold mb-6" style="color: #0097d4;">☕ Hot Drinks</h3>
+      <div class="grid md:grid-cols-3 gap-6">
+       <div class="card-hover rounded-xl overflow-hidden border-2" style="background: #ffffff; border-color: #90caf9;"><img src=Espresso_Image.jpg w=400&amp;h=250&amp;fit=crop alt="Espresso" loading="lazy" class="w-full h-48 object-cover" onerror="console.error('Image failed to load:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <div class="p-6">
+         <h4 class="font-semibold text-lg mb-2" style="color: #004e7e;">Espresso</h4>
+         <p class="text-sm mb-4" style="color: #666666;">Bold, rich single shot of premium espresso</p>
+         <p class="font-semibold" style="color: #0097d4;">$2.95</p>
+        </div>
+       </div>
+       <div class="card-hover rounded-xl overflow-hidden border-2" style="background: #ffffff; border-color: #90caf9;"><img src=Cappuccino_Image.jpg w=400&amp;h=250&amp;fit=crop alt="Cappuccino" loading="lazy" class="w-full h-48 object-cover" onerror="console.error('Image failed to load:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <div class="p-6">
+         <h4 class="font-semibold text-lg mb-2" style="color: #004e7e;">Cappuccino</h4>
+         <p class="text-sm mb-4" style="color: #666666;">Espresso with silky steamed milk &amp; foam</p>
+         <p class="font-semibold" style="color: #0097d4;">$4.50</p>
+        </div>
+       </div>
+       <div class="card-hover rounded-xl overflow-hidden border-2" style="background: #ffffff; border-color: #90caf9;"><img src=Latte_Image.jpg w=400&amp;h=250&amp;fit=crop alt="Latte Art" loading="lazy" class="w-full h-48 object-cover" onerror="console.error('Image failed to load:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <div class="p-6">
+         <h4 class="font-semibold text-lg mb-2" style="color: #004e7e;">Latte Art</h4>
+         <p class="text-sm mb-4" style="color: #666666;">Smooth espresso with velvety steamed milk</p>
+         <p class="font-semibold" style="color: #0097d4;">$5.25</p>
+        </div>
+       </div>
+      </div>
+     </div><!-- Combo Deals -->
+     <div class="mb-12">
+      <h3 class="text-2xl font-bold mb-6" style="color: #0097d4;">🎁 Combo Deals</h3>
+      <div class="grid md:grid-cols-2 gap-6">
+       <div class="card-hover rounded-xl overflow-hidden border-2" style="background: #ffffff; border-color: #90caf9;"><img src=Cappuccino_Croissant_Blueberry_Muffin.jpg w=400&amp;h=250&amp;fit=crop alt="Morning Bliss Combo" loading="lazy" class="w-full h-48 object-cover" onerror="console.error('Image failed to load:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <div class="p-6">
+         <div class="flex items-start justify-between mb-3">
+          <h4 class="font-semibold text-lg" style="color: #004e7e;">Morning Bliss</h4><span class="px-3 py-1 rounded-full text-sm font-semibold" style="background: linear-gradient(135deg, #0097d4 0%, #00b4d8 100%); color: white;">Save $2</span>
+         </div>
+         <p class="text-sm mb-4" style="color: #666666;">Cappuccino + Croissant + Blueberry Muffin</p>
+         <p class="font-semibold text-lg" style="color: #0097d4;">$10.95</p>
+        </div>
+       </div>
+       <div class="card-hover rounded-xl overflow-hidden border-2" style="background: #ffffff; border-color: #90caf9;"><img src=Latte_Sandwich_Iced_Tea.jpg w=400&amp;h=250&amp;fit=crop alt="Afternoon Pick-Me-Up Combo" loading="lazy" class="w-full h-48 object-cover" onerror="console.error('Image failed to load:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <div class="p-6">
+         <div class="flex items-start justify-between mb-3">
+          <h4 class="font-semibold text-lg" style="color: #004e7e;">Afternoon Pick-Me-Up</h4><span class="px-3 py-1 rounded-full text-sm font-semibold" style="background: linear-gradient(135deg, #0097d4 0%, #00b4d8 100%); color: white;">Save $1.50</span>
+         </div>
+         <p class="text-sm mb-4" style="color: #666666;">Latte + Sandwich + Iced Tea</p>
+         <p class="font-semibold text-lg" style="color: #0097d4;">$16.95</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Reviews Section -->
+   <section id="reviews" class="w-full px-6 md:px-12 py-16 md:py-24" style="background: #e1f5fe;">
+    <div class="max-w-6xl mx-auto">
+     <h2 class="section-title serif-font text-3xl md:text-4xl font-bold text-center mb-12" style="color: #004e7e;">Customer Love</h2>
+     <div class="grid md:grid-cols-3 gap-6">
+      <div class="rounded-xl p-6 card-hover border-2" style="background: #ffffff; border-color: #90caf9;">
+       <div class="flex items-center gap-1 mb-3"><span style="color: #ff9800;">★★★★★</span>
+       </div>
+       <p class="text-sm mb-4" style="color: #666666;">"Best coffee in town! The barista remembers my order and the atmosphere is so welcoming. I come here every morning."</p>
+       <p class="font-semibold text-sm" style="color: #004e7e;">Sarah Mitchell</p>
+       <p class="text-xs" style="color: #999999;">Regular Customer</p>
+      </div>
+      <div class="rounded-xl p-6 card-hover border-2" style="background: #ffffff; border-color: #90caf9;">
+       <div class="flex items-center gap-1 mb-3"><span style="color: #ff9800;">★★★★★</span>
+       </div>
+       <p class="text-sm mb-4" style="color: #666666;">"Perfect spot to work remotely. Free WiFi, excellent pastries, and the coffee keeps me focused all day long!"</p>
+       <p class="font-semibold text-sm" style="color: #004e7e;">Marcus Chen</p>
+       <p class="text-xs" style="color: #999999;">Tech Professional</p>
+      </div>
+      <div class="rounded-xl p-6 card-hover border-2" style="background: #ffffff; border-color: #90caf9;">
+       <div class="flex items-center gap-1 mb-3"><span style="color: #ff9800;">★★★★★</span>
+       </div>
+       <p class="text-sm mb-4" style="color: #666666;">"Celebrated my birthday here with friends. The whole team made it special. Highly recommend for gatherings!"</p>
+       <p class="font-semibold text-sm" style="color: #004e7e;">Emma Rodriguez</p>
+       <p class="text-xs" style="color: #999999;">Event Host</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Contact Section -->
+   <section id="contact" class="w-full px-6 md:px-12 py-16 md:py-24" style="background: #f0f9fc;">
+    <div class="max-w-6xl mx-auto">
+     <h2 class="section-title serif-font text-3xl md:text-4xl font-bold text-center mb-12" style="color: #004e7e;">Get in Touch</h2>
+     <div class="grid md:grid-cols-3 gap-8">
+      <div class="text-center">
+       <div class="w-12 h-12 rounded-full flex items-center justify-center mb-4 mx-auto" style="background: linear-gradient(135deg, #0097d4 0%, #00b4d8 100%);"><img src = location.jpg class="w-6 h-6" style="color: white;"></i>
+       </div>
+       <h3 class="font-semibold text-lg mb-2" style="color: #004e7e;">Location</h3>
+       <p style="color: #1a5a7a;">123 Coffee Lane<br>
+         Brew City, BC 12345</p>
+      </div>
+      <div class="text-center">
+       <div class="w-12 h-12 rounded-full flex items-center justify-center mb-4 mx-auto" style="background: linear-gradient(135deg, #0097d4 0%, #00b4d8 100%);"><img src=phone.jpg class="w-6 h-6" style="color: white;"></i>
+       </div>
+       <h3 class="font-semibold text-lg mb-2" style="color: #004e7e;">Phone</h3>
+       <p style="color: #1a5a7a;">+1 (555) 123-4567<br>
+         Mon-Sun 7am-7pm</p>
+      </div>
+      <div class="text-center">
+       <div class="w-12 h-12 rounded-full flex items-center justify-center mb-4 mx-auto" style="background: linear-gradient(135deg, #0097d4 0%, #00b4d8 100%);"><img src=mail.jpg class="w-6 h-6" style="color: white;"></i>
+       </div>
+       <h3 class="font-semibold text-lg mb-2" style="color: #004e7e;">Email</h3>
+       <p style="color: #1a5a7a;">hello@thedailybrew.com<br>
+         We reply within 24 hours</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Footer -->
+   <footer id="footer" class="w-full px-6 md:px-12 py-8" style="background: linear-gradient(135deg, #e3f2fd 0%, #e0f7ff 100%); border-top: 3px solid #0097d4;">
+    <div class="max-w-6xl mx-auto">
+     <div class="flex flex-col md:flex-row items-center justify-between">
+      <div id="tagline" class="text-sm mb-4 md:mb-0" style="color: #1a5a7a;">
+       © 2024 The Daily Brew. Crafted with love, served with care.
+      </div>
+      <div class="flex gap-6"><a href="#" style="color: #0097d4;" class="hover:opacity-80 transition">Facebook</a> <a href="#" style="color: #0097d4;" class="hover:opacity-80 transition">Instagram</a> <a href="#" style="color: #0097d4;" class="hover:opacity-80 transition">Twitter</a>
+      </div>
+     </div>
+    </div>
+   </footer>
+  </div>
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = link.getAttribute('href');
+        if (id === '#') return;
+        const element = document.querySelector(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          document.getElementById('mobile-menu').classList.add('hidden');
+        }
+      });
+    });
+
+    // Element SDK initialization
+    const defaultConfig = {
+      cafe_name: 'The Daily Brew',
+      tagline: 'Crafted with love, served with care',
+      hero_heading: 'Welcome to The Daily Brew',
+      hero_description: 'Experience the perfect blend of quality coffee, fresh pastries, and warm hospitality'
+    };
+
+    function applyConfig(config) {
+      const get = (k) => config[k] || defaultConfig[k];
+      document.getElementById('cafe-name').textContent = get('cafe_name');
+      document.getElementById('tagline').textContent = '© 2024 ' + get('cafe_name') + '. ' + get('tagline');
+      document.getElementById('hero-heading').textContent = get('hero_heading');
+      document.getElementById('hero-description').textContent = get('hero_description');
+    }
+
+    window.elementSdk.init({
+      defaultConfig,
+      onConfigChange: async (config) => applyConfig(config),
+      mapToCapabilities: (config) => ({
+        recolorables: [],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      }),
+      mapToEditPanelValues: (config) => new Map([
+        ['cafe_name', config.cafe_name || defaultConfig.cafe_name],
+        ['tagline', config.tagline || defaultConfig.tagline],
+        ['hero_heading', config.hero_heading || defaultConfig.hero_heading],
+        ['hero_description', config.hero_description || defaultConfig.hero_description]
+      ])
+    });
+
+    lucide.createIcons();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e8020a131fe47e9',t:'MTc3NTQ3MTUzNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
