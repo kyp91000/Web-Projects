@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TechBazaar | Electronics & Gadgets Store</title>
+  <meta name="description" content="Shop the latest electronics, laptops, smartphones, and accessories. Fast shipping, easy returns, and secure payment." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #1F3864; --accent: #FF6600; --green: #2ECC71;
+      --text: #2C2C2C; --muted: #6B7280; --light: #F8FAFD;
+      --white: #fff; --radius: 10px; --shadow: 0 3px 16px rgba(0,0,0,0.09);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--light); color: var(--text); }
+
+    /* TOP BAR */
+    .topbar {
+      background: var(--primary); color: rgba(255,255,255,0.85);
+      text-align: center; padding: 7px 5%; font-size: 0.82rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .topbar span { color: #7EC8E3; font-weight: 700; }
+
+    /* NAV */
+    nav {
+      background: #fff; padding: 0 5%; height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 99;
+    }
+    .nav-logo { font-size: 1.5rem; font-weight: 900; color: var(--primary); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .nav-search {
+      display: flex; flex: 1; max-width: 420px; margin: 0 24px;
+      border: 2px solid #E0E8F5; border-radius: 8px; overflow: hidden;
+    }
+    .nav-search input {
+      flex: 1; padding: 10px 16px; border: none; outline: none; font-size: 0.93rem;
+    }
+    .nav-search button {
+      background: var(--accent); color: #fff; border: none; padding: 10px 18px;
+      cursor: pointer; font-size: 1rem;
+    }
+    .nav-right { display: flex; align-items: center; gap: 22px; }
+    .nav-icon { position: relative; cursor: pointer; font-size: 1.3rem; }
+    .cart-count {
+      position: absolute; top: -7px; right: -7px; background: var(--accent);
+      color: #fff; font-size: 0.65rem; font-weight: 800; width: 18px; height: 18px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    }
+    .nav-account { font-size: 0.88rem; font-weight: 600; color: var(--primary); cursor: pointer; }
+
+    /* CATEGORY BAR */
+    .cat-bar {
+      background: var(--primary); display: flex; gap: 0; padding: 0 5%;
+      overflow-x: auto;
+    }
+    .cat-item {
+      color: rgba(255,255,255,0.8); padding: 12px 20px; font-size: 0.88rem;
+      cursor: pointer; white-space: nowrap; transition: all .2s; border-bottom: 2px solid transparent;
+    }
+    .cat-item:hover, .cat-item.active { color: #fff; border-bottom-color: var(--accent); }
+
+    /* HERO BANNER */
+    .hero-banner {
+      background: linear-gradient(135deg, #1F3864 0%, #2E75B6 70%, #5BA3D9 100%);
+      color: #fff; padding: 70px 5%; display: flex; align-items: center;
+    }
+    .hero-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 50px; align-items: center; flex-wrap: wrap; }
+    .hero-text { flex: 1 1 320px; }
+    .hero-text .deal-badge {
+      display: inline-block; background: var(--accent); color: #fff;
+      padding: 5px 16px; border-radius: 50px; font-size: 0.82rem; font-weight: 800;
+      margin-bottom: 16px; letter-spacing: 0.5px;
+    }
+    .hero-text h1 { font-size: clamp(1.6rem,4vw,2.8rem); font-weight: 800; line-height: 1.25; margin-bottom: 12px; }
+    .hero-text p { font-size: 1rem; opacity: 0.85; margin-bottom: 24px; }
+    .hero-price { display: flex; align-items: baseline; gap: 14px; margin-bottom: 24px; }
+    .price-new { font-size: 2.4rem; font-weight: 900; color: var(--accent); }
+    .price-old { font-size: 1.1rem; text-decoration: line-through; opacity: 0.55; }
+    .price-off { background: var(--green); color: #fff; padding: 4px 12px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; }
+    .btn-buy {
+      background: var(--accent); color: #fff; padding: 13px 30px; border-radius: 8px;
+      font-weight: 700; text-decoration: none; font-size: 1rem; display: inline-block;
+      margin-right: 12px; transition: all .2s;
+    }
+    .btn-buy:hover { background: #e05a00; transform: translateY(-2px); }
+    .btn-wishlist {
+      background: rgba(255,255,255,0.15); color: #fff; padding: 11px 22px;
+      border-radius: 8px; font-weight: 600; text-decoration: none;
+    }
+    .hero-img {
+      flex: 0 0 260px; height: 220px; background: rgba(255,255,255,0.1);
+      border-radius: var(--radius); display: flex; align-items: center; justify-content: center;
+      font-size: 7rem;
+    }
+
+    /* MAIN LAYOUT */
+    .shop-layout { max-width: 1100px; margin: 36px auto; padding: 0 5%; display: grid; grid-template-columns: 240px 1fr; gap: 28px; }
+
+    /* FILTER SIDEBAR */
+    .filter-sidebar {}
+    .filter-card { background: #fff; border-radius: var(--radius); padding: 20px; margin-bottom: 18px; box-shadow: var(--shadow); }
+    .filter-card h4 { font-size: 0.95rem; font-weight: 800; color: var(--primary); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #EEF2F8; }
+    .filter-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; cursor: pointer; }
+    .filter-item input[type=checkbox] { accent-color: var(--primary); width: 15px; height: 15px; cursor: pointer; }
+    .filter-item label { font-size: 0.88rem; color: var(--text); cursor: pointer; flex: 1; }
+    .filter-count { font-size: 0.75rem; color: var(--muted); }
+    .price-range { display: flex; gap: 10px; align-items: center; }
+    .price-range input { width: 90px; padding: 7px 10px; border: 1.5px solid #E0E8F5; border-radius: 6px; font-size: 0.85rem; }
+    .filter-apply {
+      width: 100%; background: var(--primary); color: #fff; border: none;
+      padding: 9px; border-radius: 7px; font-weight: 700; cursor: pointer; margin-top: 12px; font-size: 0.9rem;
+    }
+    .rating-stars { color: #F1C40F; }
+
+    /* PRODUCTS */
+    .shop-main {}
+    .shop-toolbar {
+      background: #fff; border-radius: var(--radius); padding: 14px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: var(--shadow); margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
+    }
+    .toolbar-left { font-size: 0.88rem; color: var(--muted); }
+    .toolbar-left strong { color: var(--text); }
+    .sort-select { padding: 7px 14px; border: 1.5px solid #E0E8F5; border-radius: 7px; font-size: 0.87rem; outline: none; }
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .product-card {
+      background: #fff; border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow); transition: transform .2s; position: relative;
+    }
+    .product-card:hover { transform: translateY(-4px); }
+    .product-badge {
+      position: absolute; top: 10px; left: 10px; background: var(--accent);
+      color: #fff; padding: 3px 10px; border-radius: 50px; font-size: 0.72rem; font-weight: 800; z-index: 1;
+    }
+    .product-badge.new { background: var(--green); }
+    .wishlist-btn {
+      position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.9);
+      border: none; border-radius: 50%; width: 32px; height: 32px;
+      cursor: pointer; font-size: 1rem; z-index: 1; transition: all .2s;
+    }
+    .wishlist-btn:hover { background: #fff; transform: scale(1.1); }
+    .product-thumb {
+      height: 180px; display: flex; align-items: center; justify-content: center;
+      font-size: 4.5rem; background: #F5F8FC;
+    }
+    .product-info { padding: 16px; }
+    .product-cat { font-size: 0.73rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+    .product-name { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+    .product-stars { color: #F1C40F; font-size: 0.8rem; margin-bottom: 10px; }
+    .product-stars span { color: var(--muted); font-size: 0.75rem; margin-left: 4px; }
+    .product-price { display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px; }
+    .price-current { font-size: 1.2rem; font-weight: 800; color: var(--primary); }
+    .price-orig { font-size: 0.83rem; text-decoration: line-through; color: var(--muted); }
+    .price-disc { background: #FFF0E6; color: var(--accent); font-size: 0.75rem; font-weight: 800; padding: 2px 8px; border-radius: 50px; }
+    .add-to-cart {
+      width: 100%; background: var(--primary); color: #fff; border: none;
+      padding: 9px; border-radius: 7px; font-weight: 700; cursor: pointer;
+      font-size: 0.9rem; transition: background .2s;
+    }
+    .add-to-cart:hover { background: var(--accent); }
+
+    /* CART SIDEBAR */
+    .cart-overlay {
+      display: none; position: fixed; top: 0; right: 0; width: 340px; height: 100vh;
+      background: #fff; z-index: 999; box-shadow: -4px 0 30px rgba(0,0,0,0.15);
+      flex-direction: column;
+    }
+    .cart-overlay.open { display: flex; }
+    .cart-header {
+      padding: 20px 22px; background: var(--primary); color: #fff;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .cart-header h3 { font-size: 1.1rem; }
+    .close-cart { background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+    .cart-items { flex: 1; overflow-y: auto; padding: 16px; }
+    .cart-item { display: flex; gap: 12px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #EEF2F8; }
+    .ci-thumb { width: 60px; height: 60px; background: #F5F8FC; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 2rem; flex-shrink: 0; }
+    .ci-info { flex: 1; }
+    .ci-name { font-size: 0.88rem; font-weight: 700; margin-bottom: 4px; }
+    .ci-price { font-size: 0.9rem; color: var(--primary); font-weight: 800; }
+    .ci-qty { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+    .qty-btn { width: 24px; height: 24px; background: #EEF2F8; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; font-size: 1rem; }
+    .qty-num { font-size: 0.9rem; font-weight: 700; }
+    .ci-remove { background: none; border: none; color: #C00000; font-size: 1rem; cursor: pointer; }
+    .cart-footer { padding: 18px 22px; border-top: 2px solid #EEF2F8; }
+    .cart-total { display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; }
+    .checkout-btn {
+      width: 100%; background: var(--accent); color: #fff; border: none;
+      padding: 13px; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: pointer;
+    }
+
+    /* FEATURES BAR */
+    .features-bar { background: #fff; margin-top: 40px; box-shadow: var(--shadow); }
+    .features-inner { max-width: 1100px; margin: 0 auto; padding: 24px 5%; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; }
+    .feat { text-align: center; }
+    .feat-icon { font-size: 2rem; margin-bottom: 8px; }
+    .feat h4 { font-size: 0.92rem; font-weight: 700; color: var(--primary); }
+    .feat p { font-size: 0.8rem; color: var(--muted); }
+
+    footer { background: var(--primary); color: rgba(255,255,255,0.7); text-align: center; padding: 28px 5%; font-size: 0.88rem; margin-top: 50px; }
+
+    @media (max-width: 900px) { .shop-layout { grid-template-columns: 1fr; } .filter-sidebar { display: none; } }
+    @media (max-width: 600px) { .products-grid { grid-template-columns: 1fr 1fr; } .hero-img { display: none; } .nav-search { display: none; } .topbar { display: none; } }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <span>🚀 Free Shipping</span> on orders above ₹999 &nbsp;|&nbsp; <span>7-Day Easy Returns</span> &nbsp;|&nbsp; <span>Secure Payments</span>
+  <span style="color:rgba(255,255,255,0.6)">📞 +91 1800-TECH-00</span>
+</div>
+
+<nav>
+  <a href="#" class="nav-logo">Tech<span>Bazaar</span></a>
+  <div class="nav-search">
+    <input type="text" placeholder="Search laptops, phones, accessories..." />
+    <button>🔍</button>
+  </div>
+  <div class="nav-right">
+    <div class="nav-icon">❤️</div>
+    <div class="nav-icon" onclick="toggleCart()">🛒<div class="cart-count" id="cartCount">0</div></div>
+    <div class="nav-account">👤 Login</div>
+  </div>
+</nav>
+
+<div class="cat-bar">
+  <div class="cat-item active">All</div>
+  <div class="cat-item">💻 Laptops</div>
+  <div class="cat-item">📱 Smartphones</div>
+  <div class="cat-item">🎧 Audio</div>
+  <div class="cat-item">⌨️ Peripherals</div>
+  <div class="cat-item">📺 Monitors</div>
+  <div class="cat-item">⌚ Wearables</div>
+  <div class="cat-item">🔋 Accessories</div>
+</div>
+
+<div class="hero-banner">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="deal-badge">⚡ DEAL OF THE DAY</div>
+      <h1>MacBook Pro M3<br />15" — Massive Sale!</h1>
+      <p>Lightning-fast performance. All-day battery. Stunning Retina display.</p>
+      <div class="hero-price">
+        <span class="price-new">₹1,09,999</span>
+        <span class="price-old">₹1,49,999</span>
+        <span class="price-off">27% OFF</span>
+      </div>
+      <a href="#products" class="btn-buy">Shop Now 🛒</a>
+      <a href="#products" class="btn-wishlist">View All Deals</a>
+    </div>
+    <div class="hero-img">💻</div>
+  </div>
+</div>
+
+<div class="shop-layout" id="products">
+  <!-- FILTER SIDEBAR -->
+  <aside class="filter-sidebar">
+    <div class="filter-card">
+      <h4>📂 Category</h4>
+      <div class="filter-item"><input type="checkbox" id="c1" checked /><label for="c1">All Products</label></div>
+      <div class="filter-item"><input type="checkbox" id="c2" /><label for="c2">Laptops <span class="filter-count">(12)</span></label></div>
+      <div class="filter-item"><input type="checkbox" id="c3" /><label for="c3">Smartphones <span class="filter-count">(18)</span></label></div>
+      <div class="filter-item"><input type="checkbox" id="c4" /><label for="c4">Audio <span class="filter-count">(9)</span></label></div>
+      <div class="filter-item"><input type="checkbox" id="c5" /><label for="c5">Peripherals <span class="filter-count">(14)</span></label></div>
+    </div>
+    <div class="filter-card">
+      <h4>💰 Price Range</h4>
+      <div class="price-range">
+        <input type="number" placeholder="Min" value="0" />
+        <span>—</span>
+        <input type="number" placeholder="Max" value="200000" />
+      </div>
+      <button class="filter-apply">Apply Filter</button>
+    </div>
+    <div class="filter-card">
+      <h4>⭐ Rating</h4>
+      <div class="filter-item"><input type="checkbox" id="r5" /><label for="r5"><span class="rating-stars">★★★★★</span> 5</label></div>
+      <div class="filter-item"><input type="checkbox" id="r4" /><label for="r4"><span class="rating-stars">★★★★</span>☆ 4+</label></div>
+      <div class="filter-item"><input type="checkbox" id="r3" /><label for="r3"><span class="rating-stars">★★★</span>☆☆ 3+</label></div>
+    </div>
+    <div class="filter-card">
+      <h4>🏷 Brand</h4>
+      <div class="filter-item"><input type="checkbox" id="b1" /><label for="b1">Apple</label></div>
+      <div class="filter-item"><input type="checkbox" id="b2" /><label for="b2">Samsung</label></div>
+      <div class="filter-item"><input type="checkbox" id="b3" /><label for="b3">Sony</label></div>
+      <div class="filter-item"><input type="checkbox" id="b4" /><label for="b4">Dell</label></div>
+      <div class="filter-item"><input type="checkbox" id="b5" /><label for="b5">Logitech</label></div>
+    </div>
+  </aside>
+
+  <!-- PRODUCTS -->
+  <main class="shop-main">
+    <div class="shop-toolbar">
+      <div class="toolbar-left">Showing <strong>9 products</strong> of 48</div>
+      <select class="sort-select">
+        <option>Sort: Featured</option>
+        <option>Price: Low to High</option>
+        <option>Price: High to Low</option>
+        <option>Top Rated</option>
+        <option>Newest First</option>
+      </select>
+    </div>
+    <div class="products-grid">
+
+      <div class="product-card">
+        <span class="product-badge">-27%</span>
+        <button class="wishlist-btn">♡</button>
+        <div class="product-thumb">💻</div>
+        <div class="product-info">
+          <div class="product-cat">Laptops</div>
+          <div class="product-name">MacBook Pro M3 15"</div>
+          <div class="product-stars">★★★★★ <span>(248)</span></div>
+          <div class="product-price"><span class="price-current">₹1,09,999</span><span class="price-orig">₹1,49,999</span><span class="price-disc">27% OFF</span></div>
+          <button class="add-to-cart" onclick="addToCart(this,'MacBook Pro M3',109999,'💻')">🛒 Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <span class="product-badge new">NEW</span>
+        <button class="wishlist-btn">♡</button>
+        <div class="product-thumb">📱</div>
+        <div class="product-info">
+          <div class="product-cat">Smartphones</div>
+          <div class="product-name">Samsung Galaxy S24 Ultra</div>
+          <div class="product-stars">★★★★★ <span>(512)</span></div>
+          <div class="product-price"><span class="price-current">₹89,999</span><span class="price-orig">₹1,14,999</span><span class="price-disc">22% OFF</span></div>
+          <button class="add-to-cart" onclick="addToCart(this,'Galaxy S24 Ultra',89999,'📱')">🛒 Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <span class="product-badge">-35%</span>
+        <button class="wishlist-btn">♡</button>
+        <div class="product-thumb">🎧</div>
+        <div class="product-info">
+          <div class="product-cat">Audio</div>
+          <div class="product-name">Sony WH-1000XM5 Headphones</div>
+          <div class="product-stars">★★★★★ <span>(1,024)</span></div>
+          <div class="product-price"><span class="price-current">₹19,999</span><span class="price-orig">₹30,990</span><span class="price-disc">35% OFF</span></div>
+          <button class="add-to-cart" onclick="addToCart(this,'Sony WH-1000XM5',19999,'🎧')">🛒 Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <button class="wishlist-btn">♡</button>
+        <div class="product-thumb">⌨️</div>
+        <div class="product-info">
+          <div class="product-cat">Peripherals</div>
+          <div class="product-name">Logitech MX Keys Keyboard</div>
+          <div class="product-stars">★★★★☆ <span>(387)</span></div>
+          <div class="product-price"><span class="price-current">₹8,495</span><span class="price-orig">₹10,995</span><span class="price-disc">23% OFF</span></div>
+          <button class="add-to-cart" onclick="addToCart(this,'Logitech MX Keys',8495,'⌨️')">🛒 Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <span class="product-badge">-18%</span>
+        <button class="wishlist-btn">♡</button>
+        <div class="product-thumb">📺</div>
+        <div class="product-info">
+          <div class="product-cat">Monitors</div>
+          <div class="product-name">Dell UltraSharp 27" 4K Monitor</div>
+          <div class="product-stars">★★★★★ <span>(196)</span></div>
+          <div class="product-price"><span class="price-current">₹42,999</span><span class="price-orig">₹52,999</span><span class="price-disc">18% OFF</span></div>
+          <button class="add-to-cart" onclick="addToCart(this,'Dell UltraSharp 27',42999,'📺')">🛒 Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <span class="product-badge new">NEW</span>
+        <button class="wishlist-btn">♡</button>
+        <div class="product-thumb">⌚</div>
+        <div class="product-info">
+          <div class="product-cat">Wearables</div>
+          <div class="product-name">Apple Watch Series 9 GPS</div>
+          <div class="product-stars">★★★★★ <span>(743)</span></div>
+          <div class="product-price"><span class="price-current">₹41,900</span><span class="price-orig">₹44,900</span><span class="price-disc">7% OFF</span></div>
+          <button class="add-to-cart" onclick="addToCart(this,'Apple Watch Series 9',41900,'⌚')">🛒 Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <span class="product-badge">-40%</span>
+        <button class="wishlist-btn">♡</button>
+        <div class="product-thumb">🔋</div>
+        <div class="product-info">
+          <div class="product-cat">Accessories</div>
+          <div class="product-name">Anker 20000mAh Power Bank</div>
+          <div class="product-stars">★★★★☆ <span>(2,140)</span></div>
+          <div class="product-price"><span class="price-current">₹2,999</span><span class="price-orig">₹4,999</span><span class="price-disc">40% OFF</span></div>
+          <button class="add-to-cart" onclick="addToCart(this,'Anker Power Bank',2999,'🔋')">🛒 Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <button class="wishlist-btn">♡</button>
+        <div class="product-thumb">🖱️</div>
+        <div class="product-info">
+          <div class="product-cat">Peripherals</div>
+          <div class="product-name">Logitech MX Master 3S Mouse</div>
+          <div class="product-stars">★★★★★ <span>(908)</span></div>
+          <div class="product-price"><span class="price-current">₹7,995</span><span class="price-orig">₹9,995</span><span class="price-disc">20% OFF</span></div>
+          <button class="add-to-cart" onclick="addToCart(this,'Logitech MX Master 3S',7995,'🖱️')">🛒 Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <span class="product-badge">-25%</span>
+        <button class="wishlist-btn">♡</button>
+        <div class="product-thumb">💾</div>
+        <div class="product-info">
+          <div class="product-cat">Storage</div>
+          <div class="product-name">Samsung T7 1TB Portable SSD</div>
+          <div class="product-stars">★★★★★ <span>(1,567)</span></div>
+          <div class="product-price"><span class="price-current">₹8,999</span><span class="price-orig">₹11,999</span><span class="price-disc">25% OFF</span></div>
+          <button class="add-to-cart" onclick="addToCart(this,'Samsung T7 1TB SSD',8999,'💾')">🛒 Add to Cart</button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- FEATURES BAR -->
+<div class="features-bar">
+  <div class="features-inner">
+    <div class="feat"><div class="feat-icon">🚀</div><h4>Free Shipping</h4><p>On orders above ₹999</p></div>
+    <div class="feat"><div class="feat-icon">↩️</div><h4>7-Day Returns</h4><p>Hassle-free return policy</p></div>
+    <div class="feat"><div class="feat-icon">🔒</div><h4>Secure Payment</h4><p>UPI, Cards, Net Banking</p></div>
+    <div class="feat"><div class="feat-icon">🎧</div><h4>24/7 Support</h4><p>Chat, call, or email</p></div>
+  </div>
+</div>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay">
+  <div class="cart-header">
+    <h3>🛒 Your Cart (<span id="cartItemCount">0</span> items)</h3>
+    <button class="close-cart" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <p style="color:#999;text-align:center;padding:30px;font-size:0.95rem;">Your cart is empty.<br/>Start shopping!</p>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total"><span>Total:</span><span id="cartTotal">₹0</span></div>
+    <button class="checkout-btn" onclick="checkout()">Proceed to Checkout →</button>
+  </div>
+</div>
+
+<footer>
+  <p>© 2024 TechBazaar · Electronics & Gadgets · India's Trusted Tech Store</p>
+  <p style="margin-top:8px;font-size:0.8rem;">Built with WordPress + WooCommerce + Elementor</p>
+</footer>
+
+<script>
+  let cart = [];
+
+  function toggleCart() {
+    document.getElementById('cartOverlay').classList.toggle('open');
+  }
+
+  function addToCart(btn, name, price, icon) {
+    const existing = cart.find(i => i.name === name);
+    if (existing) {
+      existing.qty++;
+    } else {
+      cart.push({ name, price, icon, qty: 1 });
+    }
+    btn.textContent = '✅ Added!';
+    btn.style.background = '#2ECC71';
+    setTimeout(() => { btn.textContent = '🛒 Add to Cart'; btn.style.background = ''; }, 1500);
+    updateCart();
+    toggleCart();
+  }
+
+  function updateCart() {
+    const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    const count = cart.reduce((s, i) => s + i.qty, 0);
+    document.getElementById('cartCount').textContent = count;
+    document.getElementById('cartItemCount').textContent = count;
+    document.getElementById('cartTotal').textContent = '₹' + total.toLocaleString('en-IN');
+    const container = document.getElementById('cartItems');
+    if (cart.length === 0) {
+      container.innerHTML = '<p style="color:#999;text-align:center;padding:30px;">Your cart is empty.</p>';
+      return;
+    }
+    container.innerHTML = cart.map((item, idx) => `
+      <div class="cart-item">
+        <div class="ci-thumb">${item.icon}</div>
+        <div class="ci-info">
+          <div class="ci-name">${item.name}</div>
+          <div class="ci-price">₹${(item.price * item.qty).toLocaleString('en-IN')}</div>
+          <div class="ci-qty">
+            <button class="qty-btn" onclick="changeQty(${idx},-1)">−</button>
+            <span class="qty-num">${item.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${idx},1)">+</button>
+            <button class="ci-remove" onclick="removeItem(${idx})">🗑</button>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+
+  function changeQty(idx, delta) {
+    cart[idx].qty = Math.max(1, cart[idx].qty + delta);
+    updateCart();
+  }
+
+  function removeItem(idx) {
+    cart.splice(idx, 1);
+    updateCart();
+  }
+
+  function checkout() {
+    if (cart.length === 0) { alert('Your cart is empty!'); return; }
+    alert('✅ Order placed successfully!\nYou will receive a confirmation email shortly.\n\nThank you for shopping at TechBazaar!');
+    cart = [];
+    updateCart();
+    toggleCart();
+  }
+
+  document.querySelectorAll('.cat-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.cat-item').forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+    });
+  });
+
+  document.querySelectorAll('.wishlist-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.textContent = btn.textContent === '♡' ? '❤️' : '♡';
+    });
+  });
+</script>
+</body>
+</html>

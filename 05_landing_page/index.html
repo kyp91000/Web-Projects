@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Launch Your Data Career | Free Masterclass — DataPro Academy</title>
+  <meta name="description" content="Join 10,000+ professionals who landed high-paying data analyst jobs. Free live masterclass — register now before seats fill up." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #1A1A2E; --accent: #E94560; --gold: #F5A623;
+      --blue: #2E75B6; --text: #2C2C2C; --muted: #6B7280;
+      --white: #fff; --radius: 12px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #fff; color: var(--text); }
+
+    /* ANNOUNCEMENT */
+    .announce {
+      background: var(--accent); color: #fff; text-align: center;
+      padding: 10px 5%; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.3px;
+    }
+    .announce span { background: rgba(255,255,255,0.2); padding: 2px 10px; border-radius: 50px; margin-right: 8px; }
+
+    /* NAV */
+    nav {
+      background: var(--primary); display: flex; align-items: center;
+      justify-content: space-between; padding: 0 5%; height: 62px;
+    }
+    .nav-logo { color: #fff; font-size: 1.25rem; font-weight: 800; text-decoration: none; }
+    .nav-logo span { color: var(--gold); }
+    .nav-cta {
+      background: var(--accent); color: #fff; padding: 9px 22px; border-radius: 50px;
+      font-weight: 700; text-decoration: none; font-size: 0.9rem; transition: all .2s;
+    }
+    .nav-cta:hover { background: #c73652; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #1A1A2E 0%, #16213E 60%, #0F3460 100%);
+      color: #fff; padding: 80px 5%; text-align: center;
+    }
+    .hero-inner { max-width: 820px; margin: 0 auto; }
+    .countdown-wrapper { margin-bottom: 28px; }
+    .countdown-label { font-size: 0.83rem; color: rgba(255,255,255,0.65); margin-bottom: 10px; letter-spacing: 0.5px; text-transform: uppercase; }
+    .countdown { display: flex; justify-content: center; gap: 14px; }
+    .cd-unit { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 10px 16px; text-align: center; }
+    .cd-num { font-size: 1.8rem; font-weight: 900; line-height: 1; color: var(--gold); }
+    .cd-lbl { font-size: 0.68rem; text-transform: uppercase; opacity: 0.65; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px; background: rgba(229,69,96,0.15);
+      border: 1px solid rgba(229,69,96,0.4); color: #FF8FA3; padding: 6px 18px;
+      border-radius: 50px; font-size: 0.83rem; font-weight: 700; margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 900; line-height: 1.2;
+      margin-bottom: 18px;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero-sub { font-size: 1.1rem; opacity: 0.85; max-width: 600px; margin: 0 auto 32px; line-height: 1.7; }
+    .hero-proof { display: flex; justify-content: center; gap: 28px; margin-bottom: 36px; flex-wrap: wrap; }
+    .proof-item { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; opacity: 0.85; }
+    .proof-icon { font-size: 1.1rem; }
+
+    /* LEAD FORM */
+    .lead-form-wrap {
+      background: #fff; border-radius: 16px; padding: 36px 32px;
+      max-width: 460px; margin: 0 auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .lead-form-wrap h3 { font-size: 1.2rem; color: var(--primary); font-weight: 800; text-align: center; margin-bottom: 6px; }
+    .form-subtitle { text-align: center; font-size: 0.88rem; color: var(--muted); margin-bottom: 22px; }
+    .lf-group { margin-bottom: 14px; }
+    .lf-group input, .lf-group select {
+      width: 100%; padding: 13px 16px; border: 1.5px solid #E5EAF2; border-radius: 8px;
+      font-size: 0.95rem; outline: none; transition: border .2s; font-family: inherit;
+    }
+    .lf-group input:focus, .lf-group select:focus { border-color: var(--blue); }
+    .lf-group input::placeholder { color: #A0AABB; }
+    .cta-btn {
+      width: 100%; background: var(--accent); color: #fff; border: none;
+      padding: 15px; border-radius: 10px; font-size: 1.05rem; font-weight: 800;
+      cursor: pointer; letter-spacing: 0.3px; transition: all .2s; margin-top: 4px;
+    }
+    .cta-btn:hover { background: #c73652; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(233,69,96,0.35); }
+    .form-trust { text-align: center; font-size: 0.78rem; color: var(--muted); margin-top: 12px; }
+    .form-success {
+      display: none; text-align: center; padding: 20px 10px;
+    }
+    .form-success .big-check { font-size: 3.5rem; margin-bottom: 12px; }
+    .form-success h3 { color: var(--primary); font-size: 1.2rem; margin-bottom: 8px; }
+    .form-success p { color: var(--muted); font-size: 0.9rem; }
+
+    /* SOCIAL PROOF BAR */
+    .proof-bar {
+      background: #F8FAFD; border-top: 1px solid #E5EAF2; border-bottom: 1px solid #E5EAF2;
+      padding: 22px 5%; display: flex; justify-content: center; gap: 50px; flex-wrap: wrap;
+    }
+    .proof-stat { text-align: center; }
+    .proof-num { font-size: 1.8rem; font-weight: 900; color: var(--primary); }
+    .proof-lbl { font-size: 0.8rem; color: var(--muted); }
+
+    /* SECTION BASE */
+    section { padding: 80px 5%; }
+    .sec-inner { max-width: 1000px; margin: 0 auto; }
+    .sec-tag { color: var(--accent); font-weight: 700; font-size: 0.82rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+    .sec-title { font-size: clamp(1.6rem,3vw,2.3rem); font-weight: 800; color: var(--primary); margin-bottom: 12px; }
+    .sec-sub { color: var(--muted); max-width: 520px; margin-bottom: 44px; }
+
+    /* WHAT YOU LEARN */
+    #learn { background: #fff; }
+    .learn-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
+    .learn-card {
+      padding: 26px 22px; border-radius: var(--radius); border: 1.5px solid #E5EAF2;
+      transition: all .25s;
+    }
+    .learn-card:hover { border-color: var(--blue); box-shadow: 0 6px 20px rgba(46,117,182,0.1); }
+    .learn-num { font-size: 2rem; font-weight: 900; color: #E5EAF2; margin-bottom: 10px; }
+    .learn-card h3 { font-size: 1rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+    .learn-card p { font-size: 0.88rem; color: var(--muted); }
+
+    /* INSTRUCTOR */
+    #instructor { background: #F8FAFD; }
+    .instructor-wrap { display: flex; gap: 48px; align-items: center; flex-wrap: wrap; }
+    .instructor-avatar {
+      width: 160px; height: 160px; border-radius: 50%; background: linear-gradient(135deg,#1A1A2E,#2E75B6);
+      display: flex; align-items: center; justify-content: center; font-size: 5rem;
+      flex-shrink: 0; border: 4px solid #fff; box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+    .instructor-text { flex: 1 1 320px; }
+    .instructor-text h3 { font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 4px; }
+    .instructor-title { color: var(--blue); font-weight: 700; margin-bottom: 14px; font-size: 0.95rem; }
+    .instructor-text p { color: var(--muted); margin-bottom: 16px; }
+    .instructor-achievements { display: flex; flex-wrap: wrap; gap: 10px; }
+    .ach-badge {
+      background: #EAF2FB; color: var(--blue); padding: 5px 14px;
+      border-radius: 50px; font-size: 0.82rem; font-weight: 700;
+    }
+
+    /* TESTIMONIALS */
+    #reviews { background: #fff; }
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
+    .review-card {
+      background: #F8FAFD; border-radius: var(--radius); padding: 26px 22px;
+      border-left: 4px solid var(--accent);
+    }
+    .review-stars { color: var(--gold); margin-bottom: 12px; }
+    .review-card p { font-style: italic; color: var(--text); font-size: 0.93rem; margin-bottom: 16px; line-height: 1.7; }
+    .reviewer { display: flex; align-items: center; gap: 12px; }
+    .reviewer-avatar {
+      width: 42px; height: 42px; border-radius: 50%; background: var(--blue);
+      display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+    }
+    .reviewer-name { font-weight: 700; font-size: 0.9rem; }
+    .reviewer-role { font-size: 0.78rem; color: var(--muted); }
+
+    /* CTA SECTION */
+    .final-cta {
+      background: linear-gradient(135deg, #1A1A2E, #0F3460);
+      color: #fff; text-align: center; padding: 80px 5%;
+    }
+    .final-cta h2 { font-size: clamp(1.6rem,4vw,2.6rem); font-weight: 900; margin-bottom: 14px; }
+    .final-cta h2 span { color: var(--gold); }
+    .final-cta p { opacity: 0.8; font-size: 1.05rem; margin-bottom: 32px; }
+    .final-btns { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    .btn-cta-main {
+      background: var(--accent); color: #fff; padding: 16px 36px; border-radius: 50px;
+      font-weight: 800; text-decoration: none; font-size: 1.05rem; transition: all .2s;
+    }
+    .btn-cta-main:hover { background: #c73652; transform: translateY(-2px); }
+    .seats-left { background: rgba(245,166,35,0.15); border: 1px solid rgba(245,166,35,0.4); color: var(--gold); padding: 8px 22px; border-radius: 50px; font-size: 0.9rem; font-weight: 700; }
+
+    footer { background: #1A1A2E; color: rgba(255,255,255,0.55); text-align: center; padding: 24px 5%; font-size: 0.82rem; }
+
+    @media (max-width: 600px) { .countdown { gap: 8px; } .instructor-avatar { width: 100px; height: 100px; font-size: 3.5rem; } }
+  </style>
+</head>
+<body>
+
+<div class="announce">
+  <span>🔥 LIMITED</span> FREE Live Masterclass filling up fast — Only <strong id="seatsLeft">23</strong> seats remaining!
+</div>
+
+<nav>
+  <a href="#" class="nav-logo">Data<span>Pro</span> Academy</a>
+  <a href="#register" class="nav-cta">🎯 Register Free</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="countdown-wrapper">
+      <div class="countdown-label">🕐 Masterclass starts in</div>
+      <div class="countdown">
+        <div class="cd-unit"><div class="cd-num" id="cdDays">02</div><div class="cd-lbl">Days</div></div>
+        <div class="cd-unit"><div class="cd-num" id="cdHours">14</div><div class="cd-lbl">Hours</div></div>
+        <div class="cd-unit"><div class="cd-num" id="cdMins">38</div><div class="cd-lbl">Mins</div></div>
+        <div class="cd-unit"><div class="cd-num" id="cdSecs">52</div><div class="cd-lbl">Secs</div></div>
+      </div>
+    </div>
+
+    <div class="hero-eyebrow">🎓 Free Live Masterclass · April 12, 2024 · 7:00 PM IST</div>
+    <h1>Land a <span>₹8–15 LPA</span><br />Data Analyst Job in 90 Days</h1>
+    <p class="hero-sub">Join our live masterclass and discover the exact roadmap, tools, and strategy used by 10,000+ professionals to crack data analyst roles at top companies.</p>
+    <div class="hero-proof">
+      <div class="proof-item"><span class="proof-icon">✅</span> No prior experience needed</div>
+      <div class="proof-item"><span class="proof-icon">✅</span> 100% free, no credit card</div>
+      <div class="proof-item"><span class="proof-icon">✅</span> Live Q&amp;A included</div>
+    </div>
+
+    <!-- LEAD FORM -->
+    <div class="lead-form-wrap" id="register">
+      <h3>🎯 Reserve Your Free Seat</h3>
+      <p class="form-subtitle">Join 10,000+ professionals. Enter your details below.</p>
+      <div id="leadForm">
+        <div class="lf-group"><input type="text" id="lf-name" placeholder="Full Name *" /></div>
+        <div class="lf-group"><input type="email" id="lf-email" placeholder="Email Address *" /></div>
+        <div class="lf-group"><input type="tel" id="lf-phone" placeholder="Mobile Number (for WhatsApp reminder) *" /></div>
+        <div class="lf-group">
+          <select id="lf-exp">
+            <option value="">Current Experience Level *</option>
+            <option>Complete Beginner</option>
+            <option>1–2 Years Experience</option>
+            <option>3–5 Years Experience</option>
+            <option>5+ Years (Career Switch)</option>
+          </select>
+        </div>
+        <button class="cta-btn" onclick="registerLead()">🚀 Register Free Now — Limited Seats!</button>
+        <p class="form-trust">🔒 Your information is 100% secure. No spam, ever.</p>
+      </div>
+      <div class="form-success" id="regSuccess">
+        <div class="big-check">🎉</div>
+        <h3>You're Registered!</h3>
+        <p>Check your email for the masterclass link.<br/>We'll also send a WhatsApp reminder 1 hour before.</p>
+        <p style="margin-top:12px;font-size:0.85rem;color:#888;">📅 April 12, 2024 · 7:00 PM IST</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROOF BAR -->
+<div class="proof-bar">
+  <div class="proof-stat"><div class="proof-num">10,000+</div><div class="proof-lbl">Students Enrolled</div></div>
+  <div class="proof-stat"><div class="proof-num">₹12 LPA</div><div class="proof-lbl">Avg Salary Achieved</div></div>
+  <div class="proof-stat"><div class="proof-num">94%</div><div class="proof-lbl">Placement Rate</div></div>
+  <div class="proof-stat"><div class="proof-num">4.9 ★</div><div class="proof-lbl">Student Rating</div></div>
+</div>
+
+<!-- WHAT YOU'LL LEARN -->
+<section id="learn">
+  <div class="sec-inner">
+    <div class="sec-tag">Masterclass Content</div>
+    <h2 class="sec-title">What You'll Learn in 90 Minutes</h2>
+    <p class="sec-sub">A complete blueprint from zero to job offer — delivered live with Q&A.</p>
+    <div class="learn-grid">
+      <div class="learn-card"><div class="learn-num">01</div><h3>The Exact Data Analyst Roadmap</h3><p>The complete skill tree for 2024 — what to learn, in what order, and what to skip entirely.</p></div>
+      <div class="learn-card"><div class="learn-num">02</div><h3>Portfolio Projects That Get Interviews</h3><p>5 proven project ideas that impress recruiters and differentiate you from 1,000 other candidates.</p></div>
+      <div class="learn-card"><div class="learn-num">03</div><h3>Master Excel, SQL & Power BI Fast</h3><p>The 20% of each tool that does 80% of the work. Learn smart, not hard.</p></div>
+      <div class="learn-card"><div class="learn-num">04</div><h3>Resume & LinkedIn That Gets Callbacks</h3><p>The exact template that generated 50+ interview calls for our students last quarter.</p></div>
+      <div class="learn-card"><div class="learn-num">05</div><h3>How to Crack Data Analyst Interviews</h3><p>Top 30 interview questions, case study frameworks, and salary negotiation scripts.</p></div>
+      <div class="learn-card"><div class="learn-num">06</div><h3>Live Q&A — Get Your Questions Answered</h3><p>Direct access to the instructor. Ask about your situation and get a personalized answer.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTRUCTOR -->
+<section id="instructor">
+  <div class="sec-inner">
+    <div class="sec-tag">Your Instructor</div>
+    <h2 class="sec-title">Learn From a Practitioner</h2>
+    <div class="instructor-wrap">
+      <div class="instructor-avatar">👨‍💻</div>
+      <div class="instructor-text">
+        <h3>Alex Morgan</h3>
+        <div class="instructor-title">Senior Data Analyst · 8+ Years Experience</div>
+        <p>Alex has worked as a Data Analyst at top MNCs and trained over 10,000 professionals across India. He specializes in making complex data concepts simple and actionable.</p>
+        <p>He has built dashboards for Fortune 500 clients, led data teams, and now dedicates his time to helping freshers and career-switchers break into high-paying data roles.</p>
+        <div class="instructor-achievements">
+          <span class="ach-badge">📊 8+ Years Experience</span>
+          <span class="ach-badge">🏢 Ex-Infosys, Wipro</span>
+          <span class="ach-badge">👥 10,000+ Students</span>
+          <span class="ach-badge">⭐ 4.9/5 Rating</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="sec-inner">
+    <div class="sec-tag">Success Stories</div>
+    <h2 class="sec-title">Students Who Made the Switch</h2>
+    <p class="sec-sub">Real results from real professionals who took action.</p>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"I went from a BPO job earning ₹3.5 LPA to a Data Analyst role at ₹9.2 LPA in 3 months. This masterclass showed me the exact path. Alex is a brilliant teacher."</p>
+        <div class="reviewer"><div class="reviewer-avatar">👨</div><div><div class="reviewer-name">Rahul Sharma</div><div class="reviewer-role">Data Analyst, Cognizant · From: BPO</div></div></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"I was a commerce graduate with zero coding knowledge. After this course I built 5 projects, cleared 3 interviews, and now work as a Business Analyst at ₹11 LPA."</p>
+        <div class="reviewer"><div class="reviewer-avatar">👩</div><div><div class="reviewer-name">Priya Patel</div><div class="reviewer-role">Business Analyst, TCS · From: B.Com</div></div></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"The portfolio project guidance alone was worth 10x. I had 4 interview calls within 2 weeks of posting my projects on LinkedIn. Highly recommend this program!"</p>
+        <div class="reviewer"><div class="reviewer-avatar">👨</div><div><div class="reviewer-name">Amit Joshi</div><div class="reviewer-role">Data Analyst, Accenture · From: Sales</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<div class="final-cta">
+  <h2>Your Data Career Starts<br /><span>This Saturday at 7 PM</span></h2>
+  <p>Free. Live. Career-changing. Only 23 seats remaining. Register now before they're gone.</p>
+  <div class="final-btns">
+    <a href="#register" class="btn-cta-main" onclick="scrollToForm()">🚀 Register Free Now</a>
+    <div class="seats-left">⚡ Only 23 seats left</div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2024 DataPro Academy · All Rights Reserved · <a href="#" style="color:#7EC8E3">Privacy Policy</a> · <a href="#" style="color:#7EC8E3">Terms</a></p>
+</footer>
+
+<script>
+  // Countdown timer
+  const target = new Date();
+  target.setDate(target.getDate() + 2);
+  target.setHours(19, 0, 0, 0);
+
+  function updateCountdown() {
+    const now  = new Date();
+    const diff = target - now;
+    if (diff <= 0) { document.querySelector('.countdown-wrapper').style.display='none'; return; }
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000)  / 60000);
+    const secs  = Math.floor((diff % 60000)    / 1000);
+    document.getElementById('cdDays').textContent  = String(days).padStart(2,'0');
+    document.getElementById('cdHours').textContent = String(hours).padStart(2,'0');
+    document.getElementById('cdMins').textContent  = String(mins).padStart(2,'0');
+    document.getElementById('cdSecs').textContent  = String(secs).padStart(2,'0');
+  }
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  // Seats countdown (fake scarcity timer)
+  let seats = 23;
+  setInterval(() => {
+    if (seats > 8 && Math.random() > 0.85) {
+      seats--;
+      document.querySelectorAll('#seatsLeft, .seats-left').forEach(el => {
+        if (el.id === 'seatsLeft') el.textContent = seats;
+        else el.textContent = `⚡ Only ${seats} seats left`;
+      });
+    }
+  }, 30000);
+
+  // Lead form registration
+  function registerLead() {
+    const name  = document.getElementById('lf-name').value.trim();
+    const email = document.getElementById('lf-email').value.trim();
+    const phone = document.getElementById('lf-phone').value.trim();
+    const exp   = document.getElementById('lf-exp').value;
+    if (!name || !email || !phone || !exp) {
+      alert('Please fill in all fields to register.');
+      return;
+    }
+    document.getElementById('leadForm').style.display = 'none';
+    document.getElementById('regSuccess').style.display = 'block';
+  }
+
+  function scrollToForm() {
+    document.getElementById('register').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
