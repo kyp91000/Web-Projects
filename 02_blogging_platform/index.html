@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DataInsight Blog | Analytics, Python & Web Dev</title>
+  <meta name="description" content="Expert articles on data analytics, Python, Power BI, Excel, and web development. Stay ahead with actionable insights." />
+  <meta name="keywords" content="data analytics blog, python tutorial, power bi, excel tips, web development" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #1F3864; --accent: #2E75B6; --green: #375623;
+      --light: #EAF2FB; --text: #2C2C2C; --muted: #6B7280;
+      --white: #fff; --card-shadow: 0 4px 18px rgba(0,0,0,0.09); --radius: 12px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; color: var(--text); background: #F8FAFD; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 99; background: var(--primary);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 62px; box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    .nav-logo { color: #fff; font-size: 1.25rem; font-weight: 800; text-decoration: none; }
+    .nav-logo span { color: #7EC8E3; }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { color: #C5D8F0; text-decoration: none; font-size: 0.93rem; transition: color .2s; }
+    .nav-links a:hover { color: #fff; }
+    .nav-search {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.12); border-radius: 50px; padding: 6px 16px;
+    }
+    .nav-search input {
+      background: none; border: none; outline: none; color: #fff; font-size: 0.9rem; width: 160px;
+    }
+    .nav-search input::placeholder { color: rgba(255,255,255,0.5); }
+
+    /* HERO BANNER */
+    .blog-hero {
+      background: linear-gradient(135deg, #1F3864, #2E75B6);
+      color: #fff; text-align: center; padding: 70px 5% 60px;
+    }
+    .blog-hero h1 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; margin-bottom: 14px; }
+    .blog-hero p { font-size: 1.1rem; opacity: 0.85; max-width: 520px; margin: 0 auto 28px; }
+    .subscribe-form { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .subscribe-form input {
+      padding: 11px 20px; border-radius: 50px; border: none; outline: none;
+      font-size: 0.95rem; width: 280px;
+    }
+    .subscribe-form button {
+      background: #FF6600; color: #fff; border: none; padding: 11px 26px;
+      border-radius: 50px; font-weight: 700; cursor: pointer; font-size: 0.95rem;
+      transition: background .25s;
+    }
+    .subscribe-form button:hover { background: #e05a00; }
+
+    /* CATEGORY TABS */
+    .categories {
+      background: #fff; border-bottom: 1px solid #E5EAF2;
+      display: flex; gap: 0; justify-content: center; overflow-x: auto;
+      padding: 0 5%;
+    }
+    .cat-tab {
+      padding: 16px 22px; font-size: 0.9rem; font-weight: 600; color: var(--muted);
+      border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;
+      transition: all .2s; background: none; border-top: none; border-left: none; border-right: none;
+    }
+    .cat-tab.active, .cat-tab:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* MAIN LAYOUT */
+    .blog-layout {
+      max-width: 1100px; margin: 40px auto; padding: 0 5%;
+      display: grid; grid-template-columns: 1fr 300px; gap: 36px;
+    }
+
+    /* FEATURED POST */
+    .featured-post {
+      background: #fff; border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--card-shadow); margin-bottom: 32px;
+    }
+    .featured-thumb {
+      height: 260px; background: linear-gradient(135deg, #1F3864, #2E75B6);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem; position: relative;
+    }
+    .featured-badge {
+      position: absolute; top: 18px; left: 18px;
+      background: #FF6600; color: #fff; padding: 5px 14px;
+      border-radius: 50px; font-size: 0.78rem; font-weight: 700;
+    }
+    .featured-body { padding: 28px 30px; }
+    .post-meta { display: flex; gap: 16px; font-size: 0.83rem; color: var(--muted); margin-bottom: 12px; flex-wrap: wrap; }
+    .post-category { color: var(--accent); font-weight: 700; }
+    .featured-body h2 { font-size: 1.5rem; color: var(--primary); margin-bottom: 12px; line-height: 1.35; }
+    .featured-body p { color: var(--muted); margin-bottom: 20px; }
+    .read-more {
+      display: inline-block; background: var(--primary); color: #fff;
+      padding: 9px 22px; border-radius: 50px; text-decoration: none;
+      font-size: 0.9rem; font-weight: 600; transition: background .2s;
+    }
+    .read-more:hover { background: var(--accent); }
+
+    /* POST GRID */
+    .posts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .post-card {
+      background: #fff; border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--card-shadow); transition: transform .2s;
+    }
+    .post-card:hover { transform: translateY(-4px); }
+    .post-thumb {
+      height: 150px; display: flex; align-items: center; justify-content: center; font-size: 3.2rem;
+    }
+    .t1 { background: linear-gradient(135deg,#375623,#70AD47); }
+    .t2 { background: linear-gradient(135deg,#833C00,#ED7D31); }
+    .t3 { background: linear-gradient(135deg,#44546A,#7F7F7F); }
+    .t4 { background: linear-gradient(135deg,#7030A0,#C5B0D5); }
+    .t5 { background: linear-gradient(135deg,#C00000,#FF6600); }
+    .t6 { background: linear-gradient(135deg,#1F3864,#9DC3E6); }
+    .post-body { padding: 18px; }
+    .post-body h3 { font-size: 0.98rem; color: var(--primary); margin-bottom: 8px; line-height: 1.4; }
+    .post-body p { font-size: 0.86rem; color: var(--muted); margin-bottom: 14px; }
+    .post-footer { display: flex; justify-content: space-between; align-items: center; }
+    .read-time { font-size: 0.78rem; color: var(--muted); }
+    .read-link { font-size: 0.82rem; color: var(--accent); font-weight: 700; text-decoration: none; }
+
+    /* TAGS */
+    .post-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+    .tag {
+      background: var(--light); color: var(--accent); font-size: 0.73rem;
+      font-weight: 700; padding: 3px 10px; border-radius: 50px;
+    }
+
+    /* SIDEBAR */
+    .sidebar { display: flex; flex-direction: column; gap: 24px; }
+    .sidebar-card {
+      background: #fff; border-radius: var(--radius); padding: 22px;
+      box-shadow: var(--card-shadow);
+    }
+    .sidebar-card h4 { font-size: 1rem; color: var(--primary); font-weight: 700; margin-bottom: 16px;
+      padding-bottom: 10px; border-bottom: 2px solid var(--light); }
+    .popular-item { display: flex; gap: 12px; margin-bottom: 14px; align-items: flex-start; }
+    .pop-num {
+      width: 28px; height: 28px; background: var(--light); color: var(--accent);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 800; flex-shrink: 0;
+    }
+    .pop-title { font-size: 0.88rem; color: var(--text); font-weight: 600; line-height: 1.4; }
+    .pop-meta { font-size: 0.75rem; color: var(--muted); }
+    .category-list { list-style: none; }
+    .category-list li {
+      display: flex; justify-content: space-between; padding: 9px 0;
+      border-bottom: 1px solid #F0F4FA; font-size: 0.9rem;
+    }
+    .category-list li a { color: var(--text); text-decoration: none; transition: color .2s; }
+    .category-list li a:hover { color: var(--accent); }
+    .cat-count {
+      background: var(--light); color: var(--accent); font-size: 0.75rem;
+      font-weight: 700; padding: 2px 9px; border-radius: 50px;
+    }
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tc-tag {
+      background: var(--light); color: var(--accent); padding: 5px 14px;
+      border-radius: 50px; font-size: 0.82rem; font-weight: 600; cursor: pointer;
+      transition: background .2s;
+    }
+    .tc-tag:hover { background: var(--accent); color: #fff; }
+    .newsletter-sidebar input {
+      width: 100%; padding: 9px 14px; border: 1.5px solid #D0DCF0;
+      border-radius: 8px; font-size: 0.9rem; margin-bottom: 10px; outline: none;
+    }
+    .newsletter-sidebar button {
+      width: 100%; background: var(--primary); color: #fff; border: none;
+      padding: 10px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.9rem;
+    }
+
+    /* PAGINATION */
+    .pagination { display: flex; justify-content: center; gap: 8px; margin-top: 36px; }
+    .page-btn {
+      width: 40px; height: 40px; border-radius: 8px; border: 1.5px solid #D0DCF0;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      font-size: 0.9rem; font-weight: 600; background: #fff; color: var(--text);
+      transition: all .2s;
+    }
+    .page-btn.active, .page-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    /* FOOTER */
+    footer {
+      background: var(--primary); color: rgba(255,255,255,0.7);
+      padding: 40px 5% 24px; margin-top: 60px;
+    }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; margin-bottom: 28px; }
+    .footer-col h5 { color: #fff; font-size: 1rem; margin-bottom: 14px; }
+    .footer-col a { display: block; color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.88rem; margin-bottom: 8px; }
+    .footer-col a:hover { color: #fff; }
+    .footer-bottom { text-align: center; font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
+
+    @media (max-width: 768px) {
+      .blog-layout { grid-template-columns: 1fr; }
+      .posts-grid { grid-template-columns: 1fr; }
+      .nav-links, .nav-search { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Data<span>Insight</span> Blog</a>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Analytics</a></li>
+    <li><a href="#">Python</a></li>
+    <li><a href="#">Power BI</a></li>
+    <li><a href="#">Web Dev</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+  <div class="nav-search">
+    <span>🔍</span>
+    <input type="text" placeholder="Search articles..." />
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="blog-hero">
+  <h1>Learn. Analyze. Build.</h1>
+  <p>Expert articles on Data Analytics, Python, Power BI, Excel, and Web Development — updated weekly.</p>
+  <div class="subscribe-form">
+    <input type="email" placeholder="Enter your email address" />
+    <button>Subscribe Free 🚀</button>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<div class="categories">
+  <button class="cat-tab active">All Posts</button>
+  <button class="cat-tab">📊 Data Analytics</button>
+  <button class="cat-tab">🐍 Python</button>
+  <button class="cat-tab">📈 Power BI</button>
+  <button class="cat-tab">📋 Excel</button>
+  <button class="cat-tab">🌐 Web Dev</button>
+  <button class="cat-tab">🛒 WordPress</button>
+  <button class="cat-tab">🤖 AI / ML</button>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="blog-layout">
+  <main>
+    <!-- FEATURED -->
+    <div class="featured-post">
+      <div class="featured-thumb">
+        <span class="featured-badge">⭐ Featured</span>
+        📊
+      </div>
+      <div class="featured-body">
+        <div class="post-meta">
+          <span class="post-category">📊 Data Analytics</span>
+          <span>📅 April 5, 2024</span>
+          <span>👤 Alex Morgan</span>
+          <span>⏱ 8 min read</span>
+        </div>
+        <h2>Complete Guide to Building a KPI Dashboard in Power BI (2024)</h2>
+        <p>Learn how to build a production-ready KPI dashboard from scratch in Power BI — covering DAX measures, dynamic filtering, drill-through reports, and publishing to Power BI Service.</p>
+        <div class="post-tags">
+          <span class="tag">Power BI</span>
+          <span class="tag">DAX</span>
+          <span class="tag">Dashboard</span>
+          <span class="tag">KPI</span>
+        </div>
+        <a href="#" class="read-more">Read Full Article →</a>
+      </div>
+    </div>
+
+    <!-- POSTS GRID -->
+    <div class="posts-grid">
+      <div class="post-card">
+        <div class="post-thumb t1">🐍</div>
+        <div class="post-body">
+          <div class="post-tags"><span class="tag">Python</span><span class="tag">Pandas</span></div>
+          <h3>RFM Customer Segmentation with Python & K-Means</h3>
+          <p>Step-by-step guide to segment customers using RFM scoring and K-Means clustering.</p>
+          <div class="post-footer">
+            <span class="read-time">⏱ 6 min</span>
+            <a href="#" class="read-link">Read →</a>
+          </div>
+        </div>
+      </div>
+      <div class="post-card">
+        <div class="post-thumb t2">📦</div>
+        <div class="post-body">
+          <div class="post-tags"><span class="tag">Excel</span><span class="tag">SQL</span></div>
+          <h3>How to Detect Inventory Discrepancies Automatically</h3>
+          <p>Build a stock mismatch detection system using Z-scores and conditional alerts.</p>
+          <div class="post-footer">
+            <span class="read-time">⏱ 5 min</span>
+            <a href="#" class="read-link">Read →</a>
+          </div>
+        </div>
+      </div>
+      <div class="post-card">
+        <div class="post-thumb t3">🌐</div>
+        <div class="post-body">
+          <div class="post-tags"><span class="tag">WordPress</span><span class="tag">SEO</span></div>
+          <h3>WordPress SEO Checklist: 15 Must-Do Optimizations</h3>
+          <p>Complete on-page SEO guide for WordPress with RankMath, schema markup, and Core Web Vitals.</p>
+          <div class="post-footer">
+            <span class="read-time">⏱ 7 min</span>
+            <a href="#" class="read-link">Read →</a>
+          </div>
+        </div>
+      </div>
+      <div class="post-card">
+        <div class="post-thumb t4">📋</div>
+        <div class="post-body">
+          <div class="post-tags"><span class="tag">Excel</span><span class="tag">Power Query</span></div>
+          <h3>Automate Your MIS Reports Using Power Query & Python</h3>
+          <p>Save hours every week by automating report generation with Python and Power Query.</p>
+          <div class="post-footer">
+            <span class="read-time">⏱ 9 min</span>
+            <a href="#" class="read-link">Read →</a>
+          </div>
+        </div>
+      </div>
+      <div class="post-card">
+        <div class="post-thumb t5">🤖</div>
+        <div class="post-body">
+          <div class="post-tags"><span class="tag">ML</span><span class="tag">Scikit-learn</span></div>
+          <h3>Predicting Employee Attrition with Random Forest</h3>
+          <p>Build and interpret a Random Forest model to identify top drivers of employee turnover.</p>
+          <div class="post-footer">
+            <span class="read-time">⏱ 10 min</span>
+            <a href="#" class="read-link">Read →</a>
+          </div>
+        </div>
+      </div>
+      <div class="post-card">
+        <div class="post-thumb t6">🛒</div>
+        <div class="post-body">
+          <div class="post-tags"><span class="tag">WooCommerce</span><span class="tag">WordPress</span></div>
+          <h3>WooCommerce Setup Guide: Build an Online Store in 1 Hour</h3>
+          <p>Complete WooCommerce tutorial covering products, payment gateways, shipping, and tax setup.</p>
+          <div class="post-footer">
+            <span class="read-time">⏱ 12 min</span>
+            <a href="#" class="read-link">Read →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGINATION -->
+    <div class="pagination">
+      <div class="page-btn">‹</div>
+      <div class="page-btn active">1</div>
+      <div class="page-btn">2</div>
+      <div class="page-btn">3</div>
+      <div class="page-btn">4</div>
+      <div class="page-btn">›</div>
+    </div>
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <h4>🔥 Popular Posts</h4>
+      <div class="popular-item"><div class="pop-num">1</div><div><div class="pop-title">Power BI DAX Formulas: Top 20 Every Analyst Must Know</div><div class="pop-meta">📊 8,420 views</div></div></div>
+      <div class="popular-item"><div class="pop-num">2</div><div><div class="pop-title">Python Pandas Cheat Sheet for Data Analysts</div><div class="pop-meta">🐍 6,190 views</div></div></div>
+      <div class="popular-item"><div class="pop-num">3</div><div><div class="pop-title">How to Build a WordPress Site from Scratch</div><div class="pop-meta">🌐 5,340 views</div></div></div>
+      <div class="popular-item"><div class="pop-num">4</div><div><div class="pop-title">Excel VLOOKUP vs INDEX-MATCH: Which to Use?</div><div class="pop-meta">📋 4,870 views</div></div></div>
+    </div>
+
+    <div class="sidebar-card">
+      <h4>📂 Categories</h4>
+      <ul class="category-list">
+        <li><a href="#">📊 Data Analytics</a><span class="cat-count">14</span></li>
+        <li><a href="#">🐍 Python</a><span class="cat-count">11</span></li>
+        <li><a href="#">📈 Power BI</a><span class="cat-count">9</span></li>
+        <li><a href="#">📋 Excel</a><span class="cat-count">8</span></li>
+        <li><a href="#">🌐 Web Dev</a><span class="cat-count">7</span></li>
+        <li><a href="#">🛒 WordPress</a><span class="cat-count">6</span></li>
+        <li><a href="#">🤖 AI / ML</a><span class="cat-count">5</span></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-card">
+      <h4>🏷 Tag Cloud</h4>
+      <div class="tag-cloud">
+        <span class="tc-tag">Power BI</span><span class="tc-tag">Python</span>
+        <span class="tc-tag">Pandas</span><span class="tc-tag">SQL</span>
+        <span class="tc-tag">Excel</span><span class="tc-tag">DAX</span>
+        <span class="tc-tag">WordPress</span><span class="tc-tag">SEO</span>
+        <span class="tc-tag">KPI</span><span class="tc-tag">Dashboard</span>
+        <span class="tc-tag">WooCommerce</span><span class="tc-tag">ML</span>
+        <span class="tc-tag">Forecast</span><span class="tc-tag">RFM</span>
+      </div>
+    </div>
+
+    <div class="sidebar-card newsletter-sidebar">
+      <h4>📬 Newsletter</h4>
+      <p style="font-size:0.86rem;color:var(--muted);margin-bottom:14px;">Get weekly articles straight to your inbox.</p>
+      <input type="text" placeholder="Your name" />
+      <input type="email" placeholder="Your email" />
+      <button onclick="this.textContent='✅ Subscribed!'">Subscribe Free</button>
+    </div>
+  </aside>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h5>DataInsight Blog</h5>
+      <p style="font-size:0.87rem;line-height:1.6;">Expert articles on data analytics, Python, Power BI, and web development.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Categories</h5>
+      <a href="#">Data Analytics</a>
+      <a href="#">Python</a>
+      <a href="#">Power BI</a>
+      <a href="#">WordPress</a>
+    </div>
+    <div class="footer-col">
+      <h5>Quick Links</h5>
+      <a href="#">About</a>
+      <a href="#">Write for Us</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>Follow Us</h5>
+      <a href="#">LinkedIn</a>
+      <a href="#">GitHub</a>
+      <a href="#">YouTube</a>
+      <a href="#">Twitter</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2024 DataInsight Blog · Built with WordPress & Elementor</div>
+</footer>
+
+<script>
+  // Category tabs
+  document.querySelectorAll('.cat-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+  // Pagination
+  document.querySelectorAll('.page-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

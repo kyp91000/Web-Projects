@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PureGlow Salon | Online Appointment Booking</title>
+  <meta name="description" content="Book your salon or clinic appointment online. Choose your service, pick a date and time, and get instant confirmation." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #6B3FA0; --accent: #9B59B6; --gold: #F1C40F;
+      --light: #F5EEF8; --text: #2C2C2C; --muted: #7F8C8D;
+      --white: #fff; --radius: 14px; --shadow: 0 4px 20px rgba(107,63,160,0.12);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #FAF7FD; color: var(--text); }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 99; background: var(--primary);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 62px; box-shadow: 0 2px 10px rgba(107,63,160,0.25);
+    }
+    .nav-logo { color: #fff; font-size: 1.3rem; font-weight: 800; text-decoration: none; }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.93rem; transition: color .2s; }
+    .nav-links a:hover { color: #fff; }
+    .book-nav-btn {
+      background: var(--gold); color: #2C2C2C; padding: 9px 22px; border-radius: 50px;
+      font-weight: 700; text-decoration: none; font-size: 0.9rem; transition: all .2s;
+    }
+    .book-nav-btn:hover { background: #f0b90b; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #6B3FA0, #9B59B6, #C39BD3);
+      color: #fff; padding: 90px 5% 70px; display: flex; align-items: center;
+    }
+    .hero-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 60px; align-items: center; flex-wrap: wrap; }
+    .hero-text { flex: 1 1 340px; }
+    .hero-text .badge {
+      display: inline-block; background: rgba(241,196,15,0.2); border: 1px solid rgba(241,196,15,0.5);
+      color: var(--gold); padding: 5px 16px; border-radius: 50px; font-size: 0.82rem; font-weight: 700;
+      margin-bottom: 18px;
+    }
+    .hero-text h1 { font-size: clamp(1.8rem,4vw,3rem); font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+    .hero-text h1 span { color: var(--gold); }
+    .hero-text p { font-size: 1.05rem; opacity: 0.88; margin-bottom: 28px; max-width: 420px; }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-gold {
+      background: var(--gold); color: #2C2C2C; padding: 12px 28px; border-radius: 50px;
+      font-weight: 700; text-decoration: none; font-size: 0.97rem; transition: all .2s;
+    }
+    .btn-gold:hover { background: #f0b90b; transform: translateY(-2px); }
+    .btn-ghost {
+      border: 2px solid rgba(255,255,255,0.6); color: #fff; padding: 10px 24px;
+      border-radius: 50px; text-decoration: none; font-weight: 600;
+    }
+    .hero-card {
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25);
+      border-radius: var(--radius); padding: 28px 24px; backdrop-filter: blur(8px);
+      flex: 0 0 280px; text-align: center;
+    }
+    .hero-card .icon { font-size: 3rem; margin-bottom: 12px; }
+    .hero-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+    .hero-card p { font-size: 0.88rem; opacity: 0.8; }
+
+    /* SECTION BASE */
+    section { padding: 80px 5%; }
+    .sec-inner { max-width: 1100px; margin: 0 auto; }
+    .sec-tag { color: var(--primary); font-weight: 700; font-size: 0.82rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+    .sec-title { font-size: clamp(1.5rem,3vw,2.2rem); font-weight: 800; color: #2C2C2C; margin-bottom: 10px; }
+    .sec-sub { color: var(--muted); font-size: 1rem; max-width: 500px; margin-bottom: 44px; }
+
+    /* SERVICES */
+    #services { background: #fff; }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+    .service-card {
+      border-radius: var(--radius); padding: 28px 22px; text-align: center;
+      border: 2px solid #F0EAF8; transition: all .25s; cursor: pointer; background: #fff;
+    }
+    .service-card:hover, .service-card.selected {
+      border-color: var(--primary); background: var(--light);
+      transform: translateY(-4px); box-shadow: var(--shadow);
+    }
+    .svc-icon { font-size: 2.5rem; margin-bottom: 14px; }
+    .service-card h3 { font-size: 1rem; color: var(--primary); font-weight: 700; margin-bottom: 8px; }
+    .service-card p { font-size: 0.88rem; color: var(--muted); margin-bottom: 12px; }
+    .svc-price { display: inline-block; background: var(--primary); color: #fff; padding: 4px 16px; border-radius: 50px; font-size: 0.88rem; font-weight: 700; }
+    .svc-duration { font-size: 0.8rem; color: var(--muted); margin-top: 6px; }
+
+    /* BOOKING FORM */
+    #booking { background: var(--light); }
+    .booking-wrap {
+      background: #fff; border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 40px; max-width: 700px; margin: 0 auto;
+    }
+    .booking-wrap h3 { font-size: 1.4rem; color: var(--primary); font-weight: 800; margin-bottom: 28px; text-align: center; }
+    .step-indicator { display: flex; gap: 0; margin-bottom: 32px; }
+    .step {
+      flex: 1; text-align: center; padding: 12px 8px;
+      border-bottom: 3px solid #E8D5F5; font-size: 0.83rem; color: var(--muted); font-weight: 600;
+    }
+    .step.active { border-bottom-color: var(--primary); color: var(--primary); }
+    .step.done { border-bottom-color: #4CAF50; color: #4CAF50; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .form-group { display: flex; flex-direction: column; gap: 7px; margin-bottom: 18px; }
+    .form-group.full { grid-column: 1/-1; }
+    .form-group label { font-size: 0.87rem; font-weight: 700; color: var(--primary); }
+    .form-group input, .form-group select, .form-group textarea {
+      border: 1.5px solid #DDD0F0; border-radius: 8px; padding: 11px 14px;
+      font-size: 0.93rem; outline: none; transition: border .2s; font-family: inherit;
+    }
+    .form-group input:focus, .form-group select:focus { border-color: var(--primary); }
+    .time-slots { display: flex; flex-wrap: wrap; gap: 10px; }
+    .time-slot {
+      padding: 8px 18px; border: 1.5px solid #DDD0F0; border-radius: 8px;
+      font-size: 0.87rem; cursor: pointer; transition: all .2s; font-weight: 600;
+      background: #fff;
+    }
+    .time-slot:hover, .time-slot.selected { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .time-slot.unavailable { background: #F5F5F5; color: #BBB; cursor: not-allowed; border-color: #EEE; }
+    .btn-book {
+      width: 100%; background: var(--primary); color: #fff; border: none;
+      padding: 14px; border-radius: 10px; font-size: 1rem; font-weight: 700;
+      cursor: pointer; margin-top: 8px; transition: background .2s; letter-spacing: 0.3px;
+    }
+    .btn-book:hover { background: #562d88; }
+    .booking-success {
+      display: none; background: #D5F5E3; border: 1px solid #4CAF50;
+      border-radius: var(--radius); padding: 28px; text-align: center;
+    }
+    .booking-success .check { font-size: 3rem; margin-bottom: 12px; }
+    .booking-success h3 { color: #1B5E20; font-size: 1.3rem; margin-bottom: 8px; }
+    .booking-success p { color: #2E7D32; font-size: 0.95rem; }
+    .conf-num { background: #1B5E20; color: #fff; display: inline-block; padding: 4px 16px; border-radius: 50px; margin: 10px 0; font-weight: 700; }
+
+    /* TEAM */
+    #team { background: #fff; }
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 24px; }
+    .team-card { text-align: center; }
+    .team-avatar {
+      width: 100px; height: 100px; border-radius: 50%; margin: 0 auto 16px;
+      display: flex; align-items: center; justify-content: center; font-size: 3rem;
+      border: 3px solid var(--light);
+    }
+    .av1 { background: linear-gradient(135deg,#6B3FA0,#9B59B6); }
+    .av2 { background: linear-gradient(135deg,#1F3864,#2E75B6); }
+    .av3 { background: linear-gradient(135deg,#833C00,#ED7D31); }
+    .av4 { background: linear-gradient(135deg,#375623,#70AD47); }
+    .team-card h3 { font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+    .team-card p { font-size: 0.85rem; color: var(--muted); margin-bottom: 10px; }
+    .team-stars { color: var(--gold); font-size: 0.9rem; }
+
+    /* FAQ */
+    #faq { background: var(--light); }
+    .faq-list { max-width: 720px; margin: 0 auto; }
+    .faq-item { background: #fff; border-radius: 10px; margin-bottom: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .faq-q {
+      padding: 18px 22px; font-weight: 700; color: var(--primary); cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center; font-size: 0.97rem;
+    }
+    .faq-a { display: none; padding: 0 22px 18px; color: var(--muted); font-size: 0.93rem; line-height: 1.7; }
+    .faq-a.open { display: block; }
+
+    /* FOOTER */
+    footer {
+      background: var(--primary); color: rgba(255,255,255,0.75);
+      padding: 36px 5% 20px; text-align: center;
+    }
+    footer strong { color: #fff; }
+
+    @media (max-width: 768px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .hero-card { display: none; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Pure<span>Glow</span> Salon</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#booking">Book Now</a></li>
+    <li><a href="#team">Our Team</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#booking" class="book-nav-btn">📅 Book Appointment</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="badge">⭐ Rated #1 Salon in Ahmedabad</div>
+      <h1>Look Your Best,<br /><span>Feel Your Best</span></h1>
+      <p>Book your beauty appointment online in under 2 minutes. Instant confirmation and email reminder included.</p>
+      <div class="hero-btns">
+        <a href="#booking" class="btn-gold">📅 Book Appointment</a>
+        <a href="#services" class="btn-ghost">View Services</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="icon">📅</div>
+      <h3>Online Booking</h3>
+      <p>Available 24/7. No phone calls needed. Instant confirmation sent to your email.</p>
+    </div>
+  </div>
+</div>
+
+<section id="services">
+  <div class="sec-inner">
+    <div class="sec-tag">Our Services</div>
+    <h2 class="sec-title">Choose Your Treatment</h2>
+    <p class="sec-sub">Click on a service to select it, then scroll down to complete your booking.</p>
+    <div class="services-grid">
+      <div class="service-card" onclick="selectService(this,'Haircut & Styling')">
+        <div class="svc-icon">✂️</div>
+        <h3>Haircut & Styling</h3>
+        <p>Expert cut and styling by our professional team.</p>
+        <span class="svc-price">₹ 500</span>
+        <div class="svc-duration">⏱ 45 mins</div>
+      </div>
+      <div class="service-card" onclick="selectService(this,'Hair Coloring')">
+        <div class="svc-icon">🎨</div>
+        <h3>Hair Coloring</h3>
+        <p>Full color, highlights, balayage, and more.</p>
+        <span class="svc-price">₹ 1,500</span>
+        <div class="svc-duration">⏱ 90 mins</div>
+      </div>
+      <div class="service-card" onclick="selectService(this,'Facial Treatment')">
+        <div class="svc-icon">💆</div>
+        <h3>Facial Treatment</h3>
+        <p>Deep cleansing, hydration, and glow treatments.</p>
+        <span class="svc-price">₹ 800</span>
+        <div class="svc-duration">⏱ 60 mins</div>
+      </div>
+      <div class="service-card" onclick="selectService(this,'Manicure & Pedicure')">
+        <div class="svc-icon">💅</div>
+        <h3>Manicure & Pedicure</h3>
+        <p>Nail care, shaping, and polish — hands and feet.</p>
+        <span class="svc-price">₹ 700</span>
+        <div class="svc-duration">⏱ 50 mins</div>
+      </div>
+      <div class="service-card" onclick="selectService(this,'Bridal Makeup')">
+        <div class="svc-icon">👰</div>
+        <h3>Bridal Makeup</h3>
+        <p>Complete bridal look with premium products.</p>
+        <span class="svc-price">₹ 5,000</span>
+        <div class="svc-duration">⏱ 120 mins</div>
+      </div>
+      <div class="service-card" onclick="selectService(this,'Spa & Massage')">
+        <div class="svc-icon">🧴</div>
+        <h3>Spa & Massage</h3>
+        <p>Full body relaxation with aromatic therapy.</p>
+        <span class="svc-price">₹ 1,200</span>
+        <div class="svc-duration">⏱ 75 mins</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="booking">
+  <div class="sec-inner">
+    <div class="sec-tag">Book Appointment</div>
+    <h2 class="sec-title">Schedule Your Visit</h2>
+    <p class="sec-sub">Fill in the details below and we'll confirm your appointment instantly.</p>
+
+    <div class="booking-wrap" id="bookingForm">
+      <h3>📅 Appointment Booking</h3>
+      <div class="step-indicator">
+        <div class="step active">1. Your Details</div>
+        <div class="step">2. Date & Time</div>
+        <div class="step">3. Confirm</div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>First Name *</label>
+          <input type="text" id="fname" placeholder="Priya" />
+        </div>
+        <div class="form-group">
+          <label>Last Name *</label>
+          <input type="text" id="lname" placeholder="Sharma" />
+        </div>
+        <div class="form-group">
+          <label>Mobile Number *</label>
+          <input type="tel" id="phone" placeholder="+91 98765 43210" />
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="email" placeholder="priya@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Service *</label>
+          <select id="serviceSelect">
+            <option value="">— Select service —</option>
+            <option>Haircut & Styling — ₹500</option>
+            <option>Hair Coloring — ₹1,500</option>
+            <option>Facial Treatment — ₹800</option>
+            <option>Manicure & Pedicure — ₹700</option>
+            <option>Bridal Makeup — ₹5,000</option>
+            <option>Spa & Massage — ₹1,200</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Preferred Stylist</label>
+          <select>
+            <option>No Preference</option>
+            <option>Ananya Sharma</option>
+            <option>Riya Patel</option>
+            <option>Kavita Nair</option>
+            <option>Sonal Mehta</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>Appointment Date *</label>
+          <input type="date" id="bookDate" />
+        </div>
+        <div class="form-group full">
+          <label>Select Time Slot *</label>
+          <div class="time-slots">
+            <div class="time-slot unavailable">9:00 AM</div>
+            <div class="time-slot" onclick="pickSlot(this)">9:30 AM</div>
+            <div class="time-slot" onclick="pickSlot(this)">10:00 AM</div>
+            <div class="time-slot" onclick="pickSlot(this)">10:30 AM</div>
+            <div class="time-slot unavailable">11:00 AM</div>
+            <div class="time-slot" onclick="pickSlot(this)">11:30 AM</div>
+            <div class="time-slot" onclick="pickSlot(this)">12:00 PM</div>
+            <div class="time-slot unavailable">2:00 PM</div>
+            <div class="time-slot" onclick="pickSlot(this)">2:30 PM</div>
+            <div class="time-slot" onclick="pickSlot(this)">3:00 PM</div>
+            <div class="time-slot" onclick="pickSlot(this)">3:30 PM</div>
+            <div class="time-slot" onclick="pickSlot(this)">4:00 PM</div>
+            <div class="time-slot" onclick="pickSlot(this)">5:00 PM</div>
+            <div class="time-slot" onclick="pickSlot(this)">5:30 PM</div>
+          </div>
+        </div>
+        <div class="form-group full">
+          <label>Special Requests</label>
+          <input type="text" placeholder="Any allergies, preferences, or notes..." />
+        </div>
+      </div>
+      <button class="btn-book" onclick="bookAppointment()">✅ Confirm Appointment</button>
+    </div>
+
+    <div class="booking-success" id="bookingSuccess">
+      <div class="check">🎉</div>
+      <h3>Appointment Confirmed!</h3>
+      <div class="conf-num" id="confNum">CONF-XXXXXX</div>
+      <p>A confirmation has been sent to your email. We look forward to seeing you!</p>
+      <p style="margin-top:12px;font-size:0.85rem;">📞 Questions? Call us: <strong>+91 98765 00001</strong></p>
+    </div>
+  </div>
+</section>
+
+<section id="team">
+  <div class="sec-inner">
+    <div class="sec-tag">Our Experts</div>
+    <h2 class="sec-title">Meet the Team</h2>
+    <p class="sec-sub">Our certified beauty professionals bring years of expertise to every appointment.</p>
+    <div class="team-grid">
+      <div class="team-card"><div class="team-avatar av1">👩</div><h3>Ananya Sharma</h3><p>Senior Hair Stylist · 8 yrs exp</p><div class="team-stars">★★★★★</div></div>
+      <div class="team-card"><div class="team-avatar av2">👩</div><h3>Riya Patel</h3><p>Skin Care Specialist · 6 yrs exp</p><div class="team-stars">★★★★★</div></div>
+      <div class="team-card"><div class="team-avatar av3">👩</div><h3>Kavita Nair</h3><p>Bridal Makeup Artist · 10 yrs exp</p><div class="team-stars">★★★★★</div></div>
+      <div class="team-card"><div class="team-avatar av4">👩</div><h3>Sonal Mehta</h3><p>Nail & Spa Technician · 5 yrs exp</p><div class="team-stars">★★★★★</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="sec-inner">
+    <div class="sec-tag">FAQ</div>
+    <h2 class="sec-title">Common Questions</h2>
+    <p class="sec-sub" style="margin-bottom:32px;">Everything you need to know about booking and visiting us.</p>
+    <div class="faq-list">
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)">How do I cancel or reschedule? <span>▼</span></div><div class="faq-a">You can cancel or reschedule up to 3 hours before your appointment. Use the confirmation number from your email or call us at +91 98765 00001.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)">Is there a cancellation fee? <span>▼</span></div><div class="faq-a">Cancellations made 3+ hours in advance are free. No-shows or late cancellations may incur a 20% service fee.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)">Do you accept walk-ins? <span>▼</span></div><div class="faq-a">Yes, we do accept walk-ins based on availability. However, we strongly recommend booking in advance to avoid waiting.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)">What payment methods are accepted? <span>▼</span></div><div class="faq-a">We accept Cash, UPI (GPay, PhonePe, Paytm), Credit/Debit Cards, and Net Banking.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)">Will I get a reminder before my appointment? <span>▼</span></div><div class="faq-a">Yes! We send an email and SMS reminder 24 hours before your appointment. Make sure to enter a valid phone and email during booking.</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><strong>PureGlow Salon</strong> · 12 Beauty Lane, CG Road, Ahmedabad · 📞 +91 98765 00001</p>
+  <p style="margin-top:10px;font-size:0.82rem;">© 2024 PureGlow Salon. Built with WordPress & Bookly Plugin.</p>
+</footer>
+
+<script>
+  // Set min date to today
+  const dateInput = document.getElementById('bookDate');
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.setAttribute('min', today);
+
+  function selectService(card, name) {
+    document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    const sel = document.getElementById('serviceSelect');
+    for (let opt of sel.options) { if (opt.text.startsWith(name)) { sel.value = opt.value; break; } }
+    document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function pickSlot(el) {
+    document.querySelectorAll('.time-slot:not(.unavailable)').forEach(s => s.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function bookAppointment() {
+    const fn = document.getElementById('fname').value.trim();
+    const ln = document.getElementById('lname').value.trim();
+    const ph = document.getElementById('phone').value.trim();
+    const svc = document.getElementById('serviceSelect').value;
+    const dt  = document.getElementById('bookDate').value;
+    const slot = document.querySelector('.time-slot.selected');
+    if (!fn || !ln || !ph || !svc || !dt || !slot) {
+      alert('Please fill in all required fields and select a time slot.');
+      return;
+    }
+    const confNum = 'CONF-' + Math.random().toString(36).substr(2,6).toUpperCase();
+    document.getElementById('confNum').textContent = confNum;
+    document.getElementById('bookingForm').style.display = 'none';
+    document.getElementById('bookingSuccess').style.display = 'block';
+    document.getElementById('bookingSuccess').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function toggleFAQ(el) {
+    const ans = el.nextElementSibling;
+    ans.classList.toggle('open');
+    el.querySelector('span').textContent = ans.classList.contains('open') ? '▲' : '▼';
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alex Morgan | Data Analyst & Web Developer</title>
+  <meta name="description" content="Professional portfolio of Alex Morgan — Data Analyst, Power BI Developer & WordPress Web Developer based in India." />
+  <meta name="keywords" content="data analyst, power bi, python, wordpress, web developer, portfolio" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #1F3864;
+      --accent:  #2E75B6;
+      --light:   #EAF2FB;
+      --text:    #2C2C2C;
+      --muted:   #6B7280;
+      --white:   #FFFFFF;
+      --card-shadow: 0 4px 20px rgba(0,0,0,0.10);
+      --radius: 12px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; color: var(--text); background: #F8FAFD; line-height: 1.7; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 999;
+      background: rgba(31,56,100,0.97); backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6%; height: 64px; box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+    }
+    .nav-logo { color: #fff; font-size: 1.3rem; font-weight: 700; letter-spacing: 0.5px; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: #C5D8F0; text-decoration: none; font-size: 0.95rem; transition: color .25s; }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta {
+      background: var(--accent); color: #fff; padding: 8px 20px; border-radius: 50px;
+      text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: background .25s;
+    }
+    .nav-cta:hover { background: #1a5fa0; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh; display: flex; align-items: center;
+      background: linear-gradient(135deg, #1F3864 0%, #2E75B6 60%, #5BA3D9 100%);
+      padding: 100px 6% 60px; color: #fff;
+    }
+    .hero-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
+    .hero-text { flex: 1 1 380px; }
+    .hero-badge {
+      display: inline-block; background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3); color: #C5D8F0;
+      padding: 6px 18px; border-radius: 50px; font-size: 0.85rem;
+      margin-bottom: 20px; letter-spacing: 0.5px;
+    }
+    .hero-text h1 { font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+    .hero-text h1 span { color: #7EC8E3; }
+    .hero-text p { font-size: 1.1rem; opacity: 0.88; max-width: 480px; margin-bottom: 32px; }
+    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: #fff; color: var(--primary); font-weight: 700; padding: 13px 30px;
+      border-radius: 50px; text-decoration: none; transition: all .25s; font-size: 0.97rem;
+    }
+    .btn-primary:hover { background: #e0edf8; transform: translateY(-2px); }
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,0.7); color: #fff; padding: 11px 28px;
+      border-radius: 50px; text-decoration: none; font-weight: 600; transition: all .25s;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.12); }
+    .hero-avatar {
+      flex: 0 0 260px; width: 260px; height: 260px; border-radius: 50%;
+      background: rgba(255,255,255,0.12); border: 5px solid rgba(255,255,255,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 7rem; box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+    }
+    .hero-stats { display: flex; gap: 32px; margin-top: 40px; flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat-num { font-size: 2rem; font-weight: 800; }
+    .stat-lbl { font-size: 0.8rem; opacity: 0.75; letter-spacing: 0.5px; text-transform: uppercase; }
+
+    /* ── SECTION BASE ── */
+    section { padding: 90px 6%; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag { color: var(--accent); font-weight: 700; font-size: 0.85rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+    .section-title { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; color: var(--primary); margin-bottom: 12px; }
+    .section-sub { color: var(--muted); font-size: 1.05rem; max-width: 560px; margin-bottom: 48px; }
+
+    /* ── ABOUT ── */
+    #about { background: #fff; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+    .about-img {
+      background: linear-gradient(135deg, #EAF2FB, #C5D8F0); border-radius: var(--radius);
+      height: 340px; display: flex; align-items: center; justify-content: center; font-size: 6rem;
+    }
+    .about-text p { color: var(--muted); margin-bottom: 18px; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .skill-tag {
+      background: var(--light); color: var(--accent); border: 1px solid #C5D8F0;
+      padding: 6px 16px; border-radius: 50px; font-size: 0.88rem; font-weight: 600;
+    }
+
+    /* ── SERVICES ── */
+    #services { background: #F8FAFD; }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; }
+    .service-card {
+      background: #fff; border-radius: var(--radius); padding: 34px 28px;
+      box-shadow: var(--card-shadow); transition: transform .25s, box-shadow .25s;
+      border-top: 4px solid var(--accent);
+    }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.14); }
+    .service-icon { font-size: 2.4rem; margin-bottom: 16px; }
+    .service-card h3 { font-size: 1.15rem; color: var(--primary); margin-bottom: 10px; }
+    .service-card p { color: var(--muted); font-size: 0.95rem; }
+
+    /* ── PORTFOLIO ── */
+    #portfolio { background: #fff; }
+    .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; }
+    .portfolio-card {
+      border-radius: var(--radius); overflow: hidden; box-shadow: var(--card-shadow);
+      transition: transform .25s;
+    }
+    .portfolio-card:hover { transform: translateY(-5px); }
+    .portfolio-thumb {
+      height: 180px; display: flex; align-items: center; justify-content: center;
+      font-size: 4rem;
+    }
+    .p-thumb-1 { background: linear-gradient(135deg,#1F3864,#2E75B6); }
+    .p-thumb-2 { background: linear-gradient(135deg,#375623,#70AD47); }
+    .p-thumb-3 { background: linear-gradient(135deg,#833C00,#ED7D31); }
+    .p-thumb-4 { background: linear-gradient(135deg,#44546A,#7F7F7F); }
+    .p-thumb-5 { background: linear-gradient(135deg,#7030A0,#9DC3E6); }
+    .p-thumb-6 { background: linear-gradient(135deg,#C00000,#FF6600); }
+    .portfolio-info { padding: 22px; background: #fff; }
+    .portfolio-info h3 { font-size: 1.05rem; color: var(--primary); margin-bottom: 6px; }
+    .portfolio-info p { color: var(--muted); font-size: 0.9rem; margin-bottom: 14px; }
+    .p-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .p-tag {
+      background: var(--light); color: var(--accent);
+      padding: 3px 12px; border-radius: 50px; font-size: 0.78rem; font-weight: 600;
+    }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials { background: var(--primary); color: #fff; }
+    #testimonials .section-title { color: #fff; }
+    #testimonials .section-sub { color: #C5D8F0; }
+    .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .testi-card {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14);
+      border-radius: var(--radius); padding: 28px 24px;
+    }
+    .testi-stars { color: #FFC000; font-size: 1.1rem; margin-bottom: 14px; }
+    .testi-card p { font-size: 0.97rem; opacity: 0.88; font-style: italic; margin-bottom: 18px; }
+    .testi-author { font-weight: 700; font-size: 0.92rem; }
+    .testi-role { font-size: 0.82rem; opacity: 0.65; }
+
+    /* ── CONTACT ── */
+    #contact { background: #F8FAFD; }
+    .contact-wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: 50px; align-items: start; }
+    .contact-info h3 { font-size: 1.3rem; color: var(--primary); margin-bottom: 20px; }
+    .contact-item { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+    .contact-icon {
+      width: 42px; height: 42px; background: var(--light); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;
+    }
+    .contact-item span { color: var(--muted); font-size: 0.95rem; }
+    .contact-form { background: #fff; border-radius: var(--radius); padding: 38px 34px; box-shadow: var(--card-shadow); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+    .form-group { display: flex; flex-direction: column; gap: 7px; margin-bottom: 18px; }
+    .form-group label { font-size: 0.88rem; font-weight: 600; color: var(--primary); }
+    .form-group input, .form-group textarea, .form-group select {
+      border: 1.5px solid #D0DCF0; border-radius: 8px; padding: 11px 14px;
+      font-size: 0.95rem; color: var(--text); outline: none; transition: border .2s;
+      font-family: inherit;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      border-color: var(--accent);
+    }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .btn-submit {
+      width: 100%; background: var(--primary); color: #fff; border: none;
+      padding: 13px; border-radius: 8px; font-size: 1rem; font-weight: 700;
+      cursor: pointer; transition: background .25s; letter-spacing: 0.3px;
+    }
+    .btn-submit:hover { background: var(--accent); }
+    .form-success {
+      display: none; background: #D5F5E3; color: #1B5E20; padding: 14px 18px;
+      border-radius: 8px; text-align: center; font-weight: 600; margin-top: 14px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--primary); color: rgba(255,255,255,0.7);
+      text-align: center; padding: 32px 6%; font-size: 0.9rem;
+    }
+    footer a { color: #7EC8E3; text-decoration: none; }
+    .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 14px; flex-wrap: wrap; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .about-grid, .contact-wrap { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-avatar { display: none; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Alex Morgan</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">📍 Available for Freelance Projects</div>
+      <h1>Data Analyst &amp;<br /><span>Web Developer</span></h1>
+      <p>I transform raw data into actionable insights and build professional websites that convert visitors into clients.</p>
+      <div class="hero-buttons">
+        <a href="#portfolio" class="btn-primary">View My Work</a>
+        <a href="#contact" class="btn-outline">Get In Touch</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-num">10+</div><div class="stat-lbl">Projects Done</div></div>
+        <div class="stat"><div class="stat-num">5+</div><div class="stat-lbl">Tools Mastered</div></div>
+        <div class="stat"><div class="stat-num">100%</div><div class="stat-lbl">Client Satisfaction</div></div>
+      </div>
+    </div>
+    <div class="hero-avatar">👨‍💼</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-img">📊</div>
+      <div class="about-text">
+        <div class="section-tag">About Me</div>
+        <h2 class="section-title">Turning Data Into Decisions</h2>
+        <p>I am a results-driven <strong>Data Analyst</strong> and <strong>Web Developer</strong> with hands-on expertise in Excel, Power BI, Python, SQL, and WordPress. I help businesses understand their data and build a strong digital presence.</p>
+        <p>With a focus on clean visuals, accurate reporting, and user-friendly websites, I deliver professional solutions that are both functional and impactful.</p>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Power BI</span>
+          <span class="skill-tag">Excel</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">WordPress</span>
+          <span class="skill-tag">Elementor</span>
+          <span class="skill-tag">WooCommerce</span>
+          <span class="skill-tag">Pandas</span>
+          <span class="skill-tag">Scikit-learn</span>
+          <span class="skill-tag">SEO</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="section-tag">What I Do</div>
+    <h2 class="section-title">My Services</h2>
+    <p class="section-sub">End-to-end professional services in data analytics and web development.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">📈</div>
+        <h3>Sales & KPI Dashboards</h3>
+        <p>Interactive Power BI and Excel dashboards showing real-time KPIs, forecasts, and performance metrics.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">👥</div>
+        <h3>Customer Segmentation</h3>
+        <p>RFM analysis and machine learning clustering to identify your most valuable customer segments.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📦</div>
+        <h3>Inventory Analytics</h3>
+        <p>Automated stock discrepancy detection, alert systems, and inventory optimization reports.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌐</div>
+        <h3>WordPress Websites</h3>
+        <p>Responsive, SEO-optimized business websites built with WordPress, Elementor, and WooCommerce.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🛒</div>
+        <h3>E-Commerce Stores</h3>
+        <p>Full WooCommerce setup with product catalog, payment gateway integration, and order management.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📋</div>
+        <h3>Automated MIS Reports</h3>
+        <p>Scheduled Python-powered reports that pull data from multiple sources and auto-generate dashboards.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-inner">
+    <div class="section-tag">My Work</div>
+    <h2 class="section-title">Featured Projects</h2>
+    <p class="section-sub">A selection of professional projects built with real-world data and modern tools.</p>
+    <div class="portfolio-grid">
+      <div class="portfolio-card">
+        <div class="portfolio-thumb p-thumb-1">📊</div>
+        <div class="portfolio-info">
+          <h3>Sales Forecasting & KPI Dashboard</h3>
+          <p>24-month historical sales analysis with 6-month ML forecast and Excel KPI dashboard.</p>
+          <div class="p-tags"><span class="p-tag">Python</span><span class="p-tag">Scikit-learn</span><span class="p-tag">Excel</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-thumb p-thumb-2">👥</div>
+        <div class="portfolio-info">
+          <h3>Customer Segmentation (RFM)</h3>
+          <p>Segmented 500 customers using RFM scoring and K-Means clustering for targeted marketing.</p>
+          <div class="p-tags"><span class="p-tag">Python</span><span class="p-tag">KMeans</span><span class="p-tag">Power BI</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-thumb p-thumb-3">📦</div>
+        <div class="portfolio-info">
+          <h3>Inventory Discrepancy Detection</h3>
+          <p>Z-score anomaly detection system comparing warehouse vs sales data with 4-level alerts.</p>
+          <div class="p-tags"><span class="p-tag">Python</span><span class="p-tag">SQL</span><span class="p-tag">Excel</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-thumb p-thumb-4">📋</div>
+        <div class="portfolio-info">
+          <h3>Automated MIS Reporting</h3>
+          <p>Multi-source automated MIS consolidation system covering Sales, HR, and Finance KPIs.</p>
+          <div class="p-tags"><span class="p-tag">Python</span><span class="p-tag">Power Query</span><span class="p-tag">Excel</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-thumb p-thumb-5">🌐</div>
+        <div class="portfolio-info">
+          <h3>E-Commerce Store (WooCommerce)</h3>
+          <p>Full WooCommerce store with product catalog, cart, checkout, and payment integration.</p>
+          <div class="p-tags"><span class="p-tag">WordPress</span><span class="p-tag">WooCommerce</span><span class="p-tag">Elementor</span></div>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-thumb p-thumb-6">🎯</div>
+        <div class="portfolio-info">
+          <h3>HR Attrition Analysis</h3>
+          <p>Random Forest model identifying top drivers of employee attrition with department-level insights.</p>
+          <div class="p-tags"><span class="p-tag">Python</span><span class="p-tag">RandomForest</span><span class="p-tag">Power BI</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-inner">
+    <div class="section-tag">Client Reviews</div>
+    <h2 class="section-title">What Clients Say</h2>
+    <p class="section-sub">Feedback from businesses I've helped with data and web solutions.</p>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"The Power BI dashboard Alex built transformed our weekly reporting. What used to take 3 hours now updates automatically."</p>
+        <div class="testi-author">Priya Sharma</div>
+        <div class="testi-role">Operations Manager, TechServe India</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Excellent WordPress site delivered on time with perfect SEO. Our leads increased by 40% in the first month."</p>
+        <div class="testi-author">Rajesh Patel</div>
+        <div class="testi-role">CEO, GrowFast Solutions</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"The customer segmentation analysis revealed segments we had never considered. Outstanding analytical work."</p>
+        <div class="testi-author">Meera Joshi</div>
+        <div class="testi-role">Marketing Head, RetailPro</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-tag">Get In Touch</div>
+    <h2 class="section-title">Let's Work Together</h2>
+    <p class="section-sub">Have a project in mind? I'd love to hear from you.</p>
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <h3>Contact Information</h3>
+        <div class="contact-item"><div class="contact-icon">📧</div><span>alex.morgan@email.com</span></div>
+        <div class="contact-item"><div class="contact-icon">📞</div><span>+91 98765 43210</span></div>
+        <div class="contact-item"><div class="contact-icon">📍</div><span>Ahmedabad, Gujarat, India</span></div>
+        <div class="contact-item"><div class="contact-icon">💼</div><span>linkedin.com/in/alexmorgan</span></div>
+        <div class="contact-item"><div class="contact-icon">🐙</div><span>github.com/alexmorgan</span></div>
+      </div>
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group"><label>First Name</label><input type="text" placeholder="John" /></div>
+          <div class="form-group"><label>Last Name</label><input type="text" placeholder="Doe" /></div>
+        </div>
+        <div class="form-group"><label>Email Address</label><input type="email" placeholder="john@company.com" /></div>
+        <div class="form-group">
+          <label>Service Required</label>
+          <select>
+            <option value="">— Select a service —</option>
+            <option>Sales / KPI Dashboard</option>
+            <option>Customer Segmentation</option>
+            <option>MIS Reporting</option>
+            <option>WordPress Website</option>
+            <option>E-Commerce Store</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Message</label><textarea placeholder="Tell me about your project..."></textarea></div>
+        <button class="btn-submit" onclick="submitForm()">Send Message 🚀</button>
+        <div class="form-success" id="successMsg">✅ Message sent successfully! I'll respond within 24 hours.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="#hero">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <p>© 2024 Alex Morgan · Data Analyst & Web Developer · Ahmedabad, India</p>
+</footer>
+
+<script>
+  // Smooth active nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 80) current = sec.getAttribute('id');
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? '#fff' : '#C5D8F0';
+    });
+  });
+
+  // Contact form submit
+  function submitForm() {
+    const inputs = document.querySelectorAll('.contact-form input, .contact-form textarea');
+    let valid = true;
+    inputs.forEach(i => { if (!i.value.trim()) valid = false; });
+    if (!valid) { alert('Please fill in all fields.'); return; }
+    document.getElementById('successMsg').style.display = 'block';
+    inputs.forEach(i => i.value = '');
+  }
+</script>
+</body>
+</html>
